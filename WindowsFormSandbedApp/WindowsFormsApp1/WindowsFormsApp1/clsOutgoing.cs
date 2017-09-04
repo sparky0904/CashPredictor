@@ -8,8 +8,12 @@ namespace WindowsFormsApp1
 {
     internal class clsOutgoing
     {
-        public string Description { get; set; }
-        public float Amount { get; set; }
-        public DateTime DateLeaveAccount { get; set; }
+        private string description;
+        private float amount;
+        private DateTime dateLeaveAccount;
+
+        public string Description { get => description; set => description = value; }
+        public float Amount { get => amount; set => amount = value; }
+        public DateTime DateLeaveAccount { get => dateLeaveAccount; set => dateLeaveAccount = value; }
     }
 }
