@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    internal class clsOutgoing
+    public class clsOutgoing
     {
         private string description;
         private float amount;
