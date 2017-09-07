@@ -12,15 +12,24 @@ namespace WindowsFormsApp1
     {
         private List<clsOutgoing> Outgoings;
 
-        public clsOutgoing[] ListAll
+        public List<clsOutgoing> ReturnAll()
         {
-            get
+            return Outgoings;
+        }
+
+        public clsOutgoing FindOutgoingByDescription(string SearchString)
+        {
+            clsOutgoing theOutgoing = new clsOutgoing();
+
+            foreach (clsOutgoing T in Outgoings)
             {
-                clsOutgoing[] theOutgoings;
-                foreach (clsOutgoing item in Outgoings)
+                if (T.Description == SearchString)
                 {
+                    theOutgoing = T;
+                    return (theOutgoing);
                 }
             }
+            return theOutgoing;
         }
     }
 }
