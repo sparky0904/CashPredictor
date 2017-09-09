@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CashPredictor
 {
-    public partial class Outgoings : Form
+    public class clsOutgoingsManagerDB
     {
-        public Outgoings()
+        public static DataSet LoadAllOutgoings()
         {
-            InitializeComponent();
+            // Load from test harness
+            return (clsTestHarness.SetUpOutgoingsData());
         }
     }
 }
