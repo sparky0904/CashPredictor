@@ -12,17 +12,30 @@ namespace CashPredictor
     public class clsOutgoingsManager
     {
         private DataSet Outgoings;
+        private int payDay;
 
         // Constructor
         public clsOutgoingsManager()
         {
             // Load the outgoings into the Outgoings array
             Outgoings = clsOutgoingsManagerDB.LoadAllOutgoings();
+            payDay = clsParameters.DayOfMonthPaid;
+        }
+
+        public DataTable GetOutGoingsTable()
+        {
+            return Outgoings.Tables["Outgoings"];
         }
 
         public DataSet ReturnAll()
         {
             return Outgoings;
+        }
+
+        public void RefreshData()
+        {
+            Outgoings = clsOutgoingsManagerDB.LoadAllOutgoings();
+            payDay = clsParameters.DayOfMonthPaid;
         }
 
         public clsOutgoing FindOutgoingByDescription(string SearchString)
@@ -43,22 +56,18 @@ namespace CashPredictor
             return theOutgoing;
         }
 
-        public double CalculateOutgoingsByDay(int currentDay)
+        public double CalculateOutgoingsByDay(DataTable theDataTable)
         {
             double theTotal = 0;
 
             // cycle through all the days in the outgoings table/
-            foreach (DataRow row in Outgoings.Tables["OutGoings"].Rows)
+            foreach (DataRow row in theDataTable.Rows)
             {
                 var xvalue = row["DayPaid"];
-                int Day = Convert.ToInt32(xvalue);
+                int dayPaid = Convert.ToInt32(xvalue);
 
-                // add to total if they >= to current day
-                if (Day >= currentDay)
-                {
-                    xvalue = row["Amount"];
-                    theTotal += Convert.ToDouble(xvalue);
-                }
+                xvalue = row["Amount"];
+                theTotal += Convert.ToDouble(xvalue);
             }
 
             return theTotal;

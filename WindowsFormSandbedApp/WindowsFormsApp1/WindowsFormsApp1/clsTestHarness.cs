@@ -9,7 +9,7 @@ namespace CashPredictor
 {
     public class clsTestHarness
     {
-        // Set up soe test data
+        // Set up some test data
         public static DataSet SetUpOutgoingsData()
         {
             // Set up some outgoings
@@ -40,7 +40,7 @@ namespace CashPredictor
             outgoingsTable.Rows.Add("WMBC", 125, 11, 0, 0, 0);
             outgoingsTable.Rows.Add("British Gas", 169, 9, 0, 0, 0);
             outgoingsTable.Rows.Add("Pocket Money", 70, 0, 1, 6, 7);
-            outgoingsTable.Rows.Add("Petrol", 60, 0, 1, 6, 14);
+            outgoingsTable.Rows.Add("Petrol", 60, 0, 1, 0, 14);
 
             // Create the table of the full outgoings list
             // This will cycle through the Outgoings and repeat any that are reoccuring
@@ -55,6 +55,18 @@ namespace CashPredictor
             outgoingsListTable.Columns.Add("DayPaid");
             outgoingsListTable.Columns[2].DataType = typeof(int);
 
+            DateTime currentDate = DateTime.Now;
+
+            int payDay = clsParameters.DayOfMonthPaid;
+            // check if PayDay is greater than the number of days in month, if so make it the same so we do not get errors
+            if (DateTime.DaysInMonth(currentDate.Year, currentDate.Month) < payDay)
+            {
+                payDay = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+            }
+
+            // check to see if pay day is actually next month, i..e paid pn 16th and it is the 20th when we are checking.
+            bool PayDayIsNextMonth = currentDate.Day > payDay ? true : false;
+
             // cycle through the rows in the outgoings table
             foreach (DataRow row in outgoingsTable.Rows)
             {
@@ -62,16 +74,65 @@ namespace CashPredictor
                 clsOutgoing outGoing = new clsOutgoing(
                     (string)row["Description"], (float)row["Amount"], (int)row["DayPaid"], (bool)row["ReOccuring"], (int)row["DayOfWeekPaid"], (int)row["Frequency"]);
 
-                // If not reoccuring then add to the list
+                currentDate = DateTime.Now;
+
                 if (Convert.ToBoolean(row["ReOccuring"]))
                 {
                     // If reoccuring calculate how many left until end of month and add these to the
-                    int CurrentDay = DateTime.Now.Day;
-                    int CurrentDayOfWeek = (int)DateTime.Now.DayOfWeek;
+                    int currentDayOfWeek = (int)DateTime.Now.DayOfWeek;
+                    if (PayDayIsNextMonth) // set the payday to end last day in month, will reset when we move to next month
+                    {
+                        payDay = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                    }
+
+                    // start loop from current day and increment up to pay day
+                    for (int i = currentDate.Day; i <= payDay; i++)
+                    {
+                        // check if if the day = the DayOfWeek paid
+                        DateTime newDate = new DateTime(currentDate.Year, currentDate.Month, i);
+                        if (outGoing.DayOfWeekPaid == (int)newDate.DayOfWeek)
+                        {
+                            Console.WriteLine("Adding recocuring line to Outgoing lists Descr {0} - {1} - {2}.", outGoing.Description, outGoing.DayOfWeekPaid, outGoing.Amount);
+                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, i);
+                        }
+
+                        // If pay date is next month and day is last day of this month then increase month and set day back to 1
+                        if (PayDayIsNextMonth)
+                        {
+                            // check if last day of month
+                            if (isLastDayInMonth(currentDate, i))
+                            {
+                                // Increase Month and also set day back to 1
+                                Console.WriteLine("Last Day in month check has triggered");
+                                currentDate = currentDate.AddMonths(1);
+                                currentDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+                                payDay = clsParameters.DayOfMonthPaid;
+                                i = 0;
+                            }
+                        }
+
+                        // If so add to the table
+                    }
+
+                    // End loop
                 }
                 else
                 {
-                    outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount);
+                    // If not reoccuring then add to the list
+                    if (PayDayIsNextMonth)
+                    {
+                        if (outGoing.DayLeaveAccount <= payDay)
+                        {
+                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount);
+                        }
+                    }
+                    else
+                    {
+                        if (outGoing.DayLeaveAccount >= currentDate.Day)
+                        {
+                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount);
+                        }
+                    }
                 }
             }
 
@@ -83,6 +144,13 @@ namespace CashPredictor
             ds.Tables["OutGoingsList"].DefaultView.Sort = "DayPaid";
 
             return (ds);
+        }
+
+        private static bool isLastDayInMonth(DateTime DateToCheck, int dayToCheck)
+        {
+            int daysInMonth = DateTime.DaysInMonth(DateToCheck.Year, DateToCheck.Month);
+
+            return dayToCheck >= daysInMonth;
         }
     }
 }

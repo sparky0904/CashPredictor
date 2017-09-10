@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="clsOutgoingsManager.cs" />
     <Compile Include="clsOutgoingsManagerDB.cs" />
+    <Compile Include="clsParameters.cs" />
     <Compile Include="clsTestHarness.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -55,6 +56,18 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="clsOutgoing.cs" />
+    <Compile Include="frmChangePayDay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChangePayDay.Designer.cs">
+      <DependentUpon>frmChangePayDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOutgoings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOutgoings.Designer.cs">
+      <DependentUpon>frmOutgoings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Outgoings.cs">
@@ -65,6 +78,12 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChangePayDay.resx">
+      <DependentUpon>frmChangePayDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOutgoings.resx">
+      <DependentUpon>frmOutgoings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Outgoings.resx">
       <DependentUpon>Outgoings.cs</DependentUpon>

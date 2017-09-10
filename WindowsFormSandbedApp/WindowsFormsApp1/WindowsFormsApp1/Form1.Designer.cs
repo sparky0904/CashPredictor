@@ -31,9 +31,13 @@
             this.fldBalance = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.fldCurrentDay = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.fldCurrentDayLabel = new System.Windows.Forms.Label();
             this.btnPredictBalance = new System.Windows.Forms.Button();
+            this.fldPayDayText = new System.Windows.Forms.Label();
+            this.btnChangePayDay = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.fldPredictedBalanceLabel = new System.Windows.Forms.Label();
+            this.btnUpdateOutgoings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,79 +67,92 @@
             this.dataGridView1.Size = new System.Drawing.Size(606, 538);
             this.dataGridView1.TabIndex = 2;
             // 
-            // fldCurrentDay
+            // fldCurrentDayLabel
             // 
-            this.fldCurrentDay.FormattingEnabled = true;
-            this.fldCurrentDay.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.fldCurrentDay.Location = new System.Drawing.Point(29, 121);
-            this.fldCurrentDay.Name = "fldCurrentDay";
-            this.fldCurrentDay.Size = new System.Drawing.Size(36, 108);
-            this.fldCurrentDay.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 105);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Day";
+            this.fldCurrentDayLabel.AutoSize = true;
+            this.fldCurrentDayLabel.Location = new System.Drawing.Point(26, 105);
+            this.fldCurrentDayLabel.Name = "fldCurrentDayLabel";
+            this.fldCurrentDayLabel.Size = new System.Drawing.Size(26, 13);
+            this.fldCurrentDayLabel.TabIndex = 4;
+            this.fldCurrentDayLabel.Text = "Day";
             // 
             // btnPredictBalance
             // 
-            this.btnPredictBalance.Location = new System.Drawing.Point(22, 319);
+            this.btnPredictBalance.Location = new System.Drawing.Point(12, 301);
             this.btnPredictBalance.Name = "btnPredictBalance";
-            this.btnPredictBalance.Size = new System.Drawing.Size(100, 25);
+            this.btnPredictBalance.Size = new System.Drawing.Size(110, 37);
             this.btnPredictBalance.TabIndex = 5;
             this.btnPredictBalance.Text = "Predict Balance";
             this.btnPredictBalance.UseVisualStyleBackColor = true;
             this.btnPredictBalance.Click += new System.EventHandler(this.btnPredictBalance_Click);
+            // 
+            // fldPayDayText
+            // 
+            this.fldPayDayText.AutoSize = true;
+            this.fldPayDayText.Location = new System.Drawing.Point(19, 144);
+            this.fldPayDayText.Name = "fldPayDayText";
+            this.fldPayDayText.Size = new System.Drawing.Size(45, 13);
+            this.fldPayDayText.TabIndex = 6;
+            this.fldPayDayText.Text = "Pay day";
+            // 
+            // btnChangePayDay
+            // 
+            this.btnChangePayDay.Location = new System.Drawing.Point(13, 190);
+            this.btnChangePayDay.Name = "btnChangePayDay";
+            this.btnChangePayDay.Size = new System.Drawing.Size(109, 38);
+            this.btnChangePayDay.TabIndex = 7;
+            this.btnChangePayDay.Text = "Change Pay Day";
+            this.btnChangePayDay.UseVisualStyleBackColor = true;
+            this.btnChangePayDay.Click += new System.EventHandler(this.btnChangePayDay_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 372);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(104, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Predicted Balance is";
+            // 
+            // fldPredictedBalanceLabel
+            // 
+            this.fldPredictedBalanceLabel.AutoSize = true;
+            this.fldPredictedBalanceLabel.Location = new System.Drawing.Point(29, 397);
+            this.fldPredictedBalanceLabel.Name = "fldPredictedBalanceLabel";
+            this.fldPredictedBalanceLabel.Size = new System.Drawing.Size(35, 13);
+            this.fldPredictedBalanceLabel.TabIndex = 9;
+            this.fldPredictedBalanceLabel.Text = "label3";
+            // 
+            // btnUpdateOutgoings
+            // 
+            this.btnUpdateOutgoings.Location = new System.Drawing.Point(12, 445);
+            this.btnUpdateOutgoings.Name = "btnUpdateOutgoings";
+            this.btnUpdateOutgoings.Size = new System.Drawing.Size(110, 34);
+            this.btnUpdateOutgoings.TabIndex = 10;
+            this.btnUpdateOutgoings.Text = "Update Outgoings";
+            this.btnUpdateOutgoings.UseVisualStyleBackColor = true;
+            this.btnUpdateOutgoings.Click += new System.EventHandler(this.btnUpdateOutgoings_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 562);
-            this.Controls.Add(this.btnPredictBalance);
+            this.Controls.Add(this.btnUpdateOutgoings);
+            this.Controls.Add(this.fldPredictedBalanceLabel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.fldCurrentDay);
+            this.Controls.Add(this.btnChangePayDay);
+            this.Controls.Add(this.fldPayDayText);
+            this.Controls.Add(this.btnPredictBalance);
+            this.Controls.Add(this.fldCurrentDayLabel);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.fldBalance);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Activated += new System.EventHandler(this.onActivated);
             this.Load += new System.EventHandler(this.eventFormLoad);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -147,9 +164,13 @@
         private System.Windows.Forms.TextBox fldBalance;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ListBox fldCurrentDay;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label fldCurrentDayLabel;
         private System.Windows.Forms.Button btnPredictBalance;
+        private System.Windows.Forms.Label fldPayDayText;
+        private System.Windows.Forms.Button btnChangePayDay;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label fldPredictedBalanceLabel;
+        private System.Windows.Forms.Button btnUpdateOutgoings;
     }
 }
 
