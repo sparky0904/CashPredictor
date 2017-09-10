@@ -87,7 +87,7 @@ namespace CashPredictor
 
         private void btnUpdateOutgoings_Click(object sender, EventArgs e)
         {
-            OutGoingsForm.Show();
+            OutGoingsForm.ShowDialog();
         }
     }
 }

@@ -33,6 +33,8 @@ namespace CashPredictor
             outgoingsTable.Columns.Add("Frequency");
             outgoingsTable.Columns[5].DataType = typeof(int);
 
+            DateTime defaultDate = DateTime.Now;
+
             outgoingsTable.Rows.Add("Mortage", 650, 1, 0, 0, 0);
             outgoingsTable.Rows.Add("Santander Credit", 200, 1, 0, 0, 0);
             outgoingsTable.Rows.Add("EE - Georgie", 37, 23, 0, 0, 0);
@@ -54,6 +56,9 @@ namespace CashPredictor
 
             outgoingsListTable.Columns.Add("DayPaid");
             outgoingsListTable.Columns[2].DataType = typeof(int);
+
+            outgoingsListTable.Columns.Add("DateDue");
+            outgoingsListTable.Columns[3].DataType = typeof(DateTime);
 
             DateTime currentDate = DateTime.Now;
 
@@ -93,7 +98,7 @@ namespace CashPredictor
                         if (outGoing.DayOfWeekPaid == (int)newDate.DayOfWeek)
                         {
                             Console.WriteLine("Adding recocuring line to Outgoing lists Descr {0} - {1} - {2}.", outGoing.Description, outGoing.DayOfWeekPaid, outGoing.Amount);
-                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, i);
+                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, i, newDate);
                         }
 
                         // If pay date is next month and day is last day of this month then increase month and set day back to 1
@@ -123,14 +128,14 @@ namespace CashPredictor
                     {
                         if (outGoing.DayLeaveAccount <= payDay)
                         {
-                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount);
+                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount, currentDate);
                         }
                     }
                     else
                     {
                         if (outGoing.DayLeaveAccount >= currentDate.Day)
                         {
-                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount);
+                            outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount, currentDate);
                         }
                     }
                 }

@@ -39,7 +39,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fldDayOfWeekPaid = new System.Windows.Forms.ComboBox();
             this.btnNew = new System.Windows.Forms.Button();
-            this.btnAmend = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -50,10 +49,11 @@
             // fldOutgoings
             // 
             this.fldOutgoings.FormattingEnabled = true;
-            this.fldOutgoings.Location = new System.Drawing.Point(19, 27);
+            this.fldOutgoings.Location = new System.Drawing.Point(27, 33);
             this.fldOutgoings.Name = "fldOutgoings";
             this.fldOutgoings.Size = new System.Drawing.Size(141, 394);
             this.fldOutgoings.TabIndex = 0;
+            this.fldOutgoings.SelectedIndexChanged += new System.EventHandler(this.onSelectedIndexChanged);
             // 
             // label1
             // 
@@ -76,9 +76,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(178, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 13);
+            this.label2.Size = new System.Drawing.Size(149, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Day payment leaves account";
+            this.label2.Text = "Date payment leaves account";
             // 
             // fldDayPaid
             // 
@@ -114,6 +114,7 @@
             this.fldReoccuring.TabIndex = 8;
             this.fldReoccuring.Text = "Reoccuring";
             this.fldReoccuring.UseVisualStyleBackColor = true;
+            this.fldReoccuring.CheckedChanged += new System.EventHandler(this.onCheckedChange);
             // 
             // label4
             // 
@@ -141,18 +142,9 @@
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
             // 
-            // btnAmend
-            // 
-            this.btnAmend.Location = new System.Drawing.Point(244, 313);
-            this.btnAmend.Name = "btnAmend";
-            this.btnAmend.Size = new System.Drawing.Size(64, 34);
-            this.btnAmend.TabIndex = 12;
-            this.btnAmend.Text = "Amend";
-            this.btnAmend.UseVisualStyleBackColor = true;
-            // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(314, 313);
+            this.btnDelete.Location = new System.Drawing.Point(244, 313);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(64, 34);
             this.btnDelete.TabIndex = 13;
@@ -161,7 +153,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(244, 365);
+            this.btnCancel.Location = new System.Drawing.Point(384, 313);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(64, 34);
             this.btnCancel.TabIndex = 14;
@@ -170,7 +162,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(174, 365);
+            this.btnSave.Location = new System.Drawing.Point(314, 313);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(64, 34);
             this.btnSave.TabIndex = 15;
@@ -203,7 +195,6 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnAmend);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.fldDayOfWeekPaid);
             this.Controls.Add(this.label4);
@@ -217,6 +208,7 @@
             this.Controls.Add(this.fldOutgoings);
             this.Name = "frmOutgoings";
             this.Text = "frmOutgoings";
+            this.Activated += new System.EventHandler(this.onActiviated);
             this.Load += new System.EventHandler(this.OnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -236,7 +228,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox fldDayOfWeekPaid;
         private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.Button btnAmend;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
