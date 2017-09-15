@@ -90,7 +90,7 @@ namespace CashPredictor
                 payDay = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
             }
 
-            // check to see if pay day is actually next month, i..e paid pn 16th and it is the 20th when we are checking.
+            // check to see if pay day is actually next month, i.e paid pn 16th and it is the 20th when we are checking.
             bool PayDayIsNextMonth = currentDate.Day > payDay ? true : false;
 
             // cycle through the rows in the outgoings table
