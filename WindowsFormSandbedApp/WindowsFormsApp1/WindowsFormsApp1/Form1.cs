@@ -42,7 +42,7 @@ namespace CashPredictor
             // take from current balance
             double predictedBalance = Convert.ToDouble(this.fldBalance.Text.ToString()) - theOutgoings;
 
-            this.fldPredictedBalanceLabel.Text = "£" + predictedBalance;
+            this.fldPredictedBalanceLabel.Text = "£" + predictedBalance.ToString("F2");
 
             // display info
             // MessageBox.Show("Predicted Balance is - " + predictedBalance.ToString());
@@ -74,10 +74,6 @@ namespace CashPredictor
             this.dataGridView1.Refresh();
         }
 
-        private void OnPaint(object sender, PaintEventArgs e)
-        {
-        }
-
         private void onActivated(object sender, EventArgs e)
         {
             SetUpForm();
@@ -88,6 +84,13 @@ namespace CashPredictor
         private void btnUpdateOutgoings_Click(object sender, EventArgs e)
         {
             OutGoingsForm.ShowDialog();
+        }
+
+        private void fldBalance_TextChanged(object sender, EventArgs e)
+        {
+            double parsedNumber;
+            if (this.fldBalance.Text != "" && double.TryParse(this.fldBalance.Text, out parsedNumber))
+                CalaculateAndUpdatePredictedBalance();
         }
     }
 }

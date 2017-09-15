@@ -35,14 +35,35 @@ namespace CashPredictor
 
             DateTime defaultDate = DateTime.Now;
 
-            outgoingsTable.Rows.Add("Mortage", 650, 1, 0, 0, 0);
             outgoingsTable.Rows.Add("Santander Credit", 200, 1, 0, 0, 0);
-            outgoingsTable.Rows.Add("EE - Georgie", 37, 23, 0, 0, 0);
-            outgoingsTable.Rows.Add("Loan - Car", 275, 1, 0, 0, 0);
-            outgoingsTable.Rows.Add("WMBC", 125, 11, 0, 0, 0);
-            outgoingsTable.Rows.Add("British Gas", 169, 9, 0, 0, 0);
+            outgoingsTable.Rows.Add("Loan - Car", 280.52, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("AIL QUOTE ME HAPPY", 55.04, 24, 0, 0, 0);
+            outgoingsTable.Rows.Add("AVIVA", 83.78, 11, 0, 0, 0);
+            outgoingsTable.Rows.Add("British Gas", 169.84, 5, 0, 0, 0);
+            outgoingsTable.Rows.Add("CAMELOT LOTTERY", 40.50, 23, 0, 0, 0);
+            outgoingsTable.Rows.Add("CREATION.CO.UK", 102.06, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("EE - Georgie", 33.73, 15, 0, 0, 0);
+            outgoingsTable.Rows.Add("EE - Mine", 32.98, 15, 0, 0, 0);
+            outgoingsTable.Rows.Add("FDA", 29, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("L&G I LTD XBM-MI", 22.16, 24, 0, 0, 0);
+            outgoingsTable.Rows.Add("LEGAL & GEN MI C/L", 9.62, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("PC/SOURCE INS", 25.23, 11, 0, 0, 0);
+            outgoingsTable.Rows.Add("ROYAL SUNALLIANCE", 17.29, 17, 0, 0, 0);
+            outgoingsTable.Rows.Add("Mortage", 684.45, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("SEVERN TRENT WATER", 33.89, 4, 0, 0, 0);
+            outgoingsTable.Rows.Add("SKY DIGITAL", 74, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("TALKTALK LIMITED", 40.01, 23, 0, 0, 0);
+            outgoingsTable.Rows.Add("TV LICENCE MBP", 12.12, 1, 0, 0, 0);
+            outgoingsTable.Rows.Add("WALSALL M.B.C", 145, 11, 0, 0, 0);
+            outgoingsTable.Rows.Add("WWF-UK DD", 6, 31, 0, 0, 0);
+            outgoingsTable.Rows.Add("Amazon Prime", 7.99, 7, 0, 0, 0);
+            outgoingsTable.Rows.Add("Google Drive", 1.59, 24, 0, 0, 0);
+            outgoingsTable.Rows.Add("Amazon Music", 7.99, 26, 0, 0, 0);
+            outgoingsTable.Rows.Add("PAYPAL *POSTCODELO ", 10.35, 14, 0, 0, 0);
+
+            // Reoccuring weekly
             outgoingsTable.Rows.Add("Pocket Money", 70, 0, 1, 6, 7);
-            outgoingsTable.Rows.Add("Petrol", 60, 0, 1, 0, 14);
+            outgoingsTable.Rows.Add("Petrol", 20, 0, 1, 0, 7);
 
             // Create the table of the full outgoings list
             // This will cycle through the Outgoings and repeat any that are reoccuring
@@ -85,7 +106,8 @@ namespace CashPredictor
                 {
                     // If reoccuring calculate how many left until end of month and add these to the
                     int currentDayOfWeek = (int)DateTime.Now.DayOfWeek;
-                    if (PayDayIsNextMonth) // set the payday to end last day in month, will reset when we move to next month
+                    if (PayDayIsNextMonth)
+                    // set the payday to end last day in month, will reset when we move to next month
                     {
                         payDay = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
                     }
@@ -133,7 +155,7 @@ namespace CashPredictor
                     }
                     else
                     {
-                        if (outGoing.DayLeaveAccount >= currentDate.Day)
+                        if (outGoing.DayLeaveAccount > currentDate.Day)
                         {
                             outgoingsListTable.Rows.Add(outGoing.Description, outGoing.Amount, outGoing.DayLeaveAccount, currentDate);
                         }

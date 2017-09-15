@@ -47,7 +47,8 @@
             this.fldBalance.Name = "fldBalance";
             this.fldBalance.Size = new System.Drawing.Size(109, 20);
             this.fldBalance.TabIndex = 0;
-            this.fldBalance.Text = "325";
+            this.fldBalance.Text = "0";
+            this.fldBalance.TextChanged += new System.EventHandler(this.fldBalance_TextChanged);
             // 
             // label1
             // 
