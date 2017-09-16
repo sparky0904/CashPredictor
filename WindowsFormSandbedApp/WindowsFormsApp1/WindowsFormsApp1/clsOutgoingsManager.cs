@@ -18,6 +18,9 @@ namespace CashPredictor
         public clsOutgoingsManager()
         {
             // Load the outgoings into the Outgoings array
+            // Outgoings = clsOutgoingsManagerDB.LoadAllOutgoings();
+            clsOutgoingsManagerDB.InitaliseTheDataset();
+
             Outgoings = clsOutgoingsManagerDB.LoadAllOutgoings();
             payDay = clsParameters.DayOfMonthPaid;
         }
@@ -34,7 +37,8 @@ namespace CashPredictor
 
         public void RefreshData()
         {
-            Outgoings = clsOutgoingsManagerDB.LoadAllOutgoings();
+            // Outgoings = clsOutgoingsManagerDB.LoadAllOutgoings();
+            Console.WriteLine("Have taken out the line to reload the data as it should now be coming from the static outgoings manager class in program namespace.");
             payDay = clsParameters.DayOfMonthPaid;
         }
 

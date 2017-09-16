@@ -76,6 +76,14 @@
     <Compile Include="Outgoings.Designer.cs">
       <DependentUpon>Outgoings.cs</DependentUpon>
     </Compile>
+    <Compile Include="theDataSetv1.cs">
+      <DependentUpon>theDataSetv1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="theDataSetv1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>theDataSetv1.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +115,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="theDataSetv1.xsc">
+      <DependentUpon>theDataSetv1.xsd</DependentUpon>
+    </None>
+    <None Include="theDataSetv1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>theDataSetv1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="theDataSetv1.xss">
+      <DependentUpon>theDataSetv1.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

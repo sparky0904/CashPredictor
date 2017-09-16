@@ -10,30 +10,13 @@ namespace CashPredictor
     public class clsTestHarness
     {
         // Set up some test data
-        public static DataSet SetUpOutgoingsData()
+        public static DataSet SetUpOutgoingsData(DataTable theOutGoingsTable, DataTable theOutGoingsListTable)
         {
             // Set up some outgoings
-            DataTable outgoingsTable = new DataTable("OutGoings");
-
-            outgoingsTable.Columns.Add("Description");
-            outgoingsTable.Columns[0].DataType = typeof(string);
-
-            outgoingsTable.Columns.Add("Amount");
-            outgoingsTable.Columns[1].DataType = typeof(float);
-
-            outgoingsTable.Columns.Add("DayPaid");
-            outgoingsTable.Columns[2].DataType = typeof(int);
-
-            outgoingsTable.Columns.Add("ReOccuring");
-            outgoingsTable.Columns[3].DataType = typeof(bool);
-
-            outgoingsTable.Columns.Add("DayOfWeekPaid");
-            outgoingsTable.Columns[4].DataType = typeof(int);
-
-            outgoingsTable.Columns.Add("Frequency");
-            outgoingsTable.Columns[5].DataType = typeof(int);
 
             DateTime defaultDate = DateTime.Now;
+
+            DataTable outgoingsTable = theOutGoingsTable;
 
             outgoingsTable.Rows.Add("Santander Credit", 200, 1, 0, 0, 0);
             outgoingsTable.Rows.Add("Loan - Car", 280.52, 1, 0, 0, 0);
@@ -62,25 +45,14 @@ namespace CashPredictor
             outgoingsTable.Rows.Add("PAYPAL *POSTCODELO ", 10.35, 14, 0, 0, 0);
 
             // Reoccuring weekly
-            outgoingsTable.Rows.Add("Pocket Money", 70, 0, 1, 6, 7);
+            outgoingsTable.Rows.Add("Pocket Money", 70, 0, 1, 5, 7);
             outgoingsTable.Rows.Add("Petrol", 20, 0, 1, 0, 7);
+
+            // Create a data table
+            DataTable outgoingsListTable = theOutGoingsListTable;
 
             // Create the table of the full outgoings list
             // This will cycle through the Outgoings and repeat any that are reoccuring
-            DataTable outgoingsListTable = new DataTable("OutGoingsList");
-
-            outgoingsListTable.Columns.Add("Description");
-            outgoingsListTable.Columns[0].DataType = typeof(string);
-
-            outgoingsListTable.Columns.Add("Amount");
-            outgoingsListTable.Columns[1].DataType = typeof(float);
-
-            outgoingsListTable.Columns.Add("DayPaid");
-            outgoingsListTable.Columns[2].DataType = typeof(int);
-
-            outgoingsListTable.Columns.Add("DateDue");
-            outgoingsListTable.Columns[3].DataType = typeof(DateTime);
-
             DateTime currentDate = DateTime.Now;
 
             int payDay = clsParameters.DayOfMonthPaid;

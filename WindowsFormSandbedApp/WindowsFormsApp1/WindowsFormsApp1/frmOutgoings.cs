@@ -13,12 +13,18 @@ namespace CashPredictor
     public partial class frmOutgoings : Form
     {
         private string[] DaysOfWeek = new string[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-        private bool isDirty = false;
+        private bool formIsDirty = false;
+        private bool dataTableisDirty = false;
+        private bool isEditingForm = false;
+
+        private DataTable OutgoingsTable = Program.OutgoingsManager.GetOutGoingsTable();
 
         public frmOutgoings()
         {
             InitializeComponent();
         }
+
+        #region Form Methods
 
         private void SetupForm()
         {
@@ -51,7 +57,6 @@ namespace CashPredictor
             string selectedItem = fldOutgoings.GetItemText(fldOutgoings.SelectedItem);
             clsOutgoing theOutgoing = new clsOutgoing();
 
-            DataTable OutgoingsTable = Program.OutgoingsManager.GetOutGoingsTable();
             foreach (DataRow row in OutgoingsTable.Rows)
             {
                 if ((string)row["Description"] == selectedItem)
@@ -73,6 +78,7 @@ namespace CashPredictor
 
         private void UpdateFieldsAfterReoccuringSelectionChanged()
         {
+            btnCancel.Text = "Exit";
             if (fldReoccuring.Checked)
             {
                 fldDayPaid.Enabled = false;
@@ -86,6 +92,26 @@ namespace CashPredictor
                 fldDayPaid.Enabled = true;
             }
         }
+
+        private void LoadData()
+        {
+        }
+
+        private int SaveData()
+        {
+            return (clsOutgoingsManagerDB.SaveData(OutgoingsTable));
+        }
+
+        private void OnFormDataHAsChanged()
+        {
+            formIsDirty = true;
+            isEditingForm = true;
+            btnCancel.Text = "Cancel";
+        }
+
+        #endregion Form Methods
+
+        #region Form Events
 
         private void OnLoad(object sender, EventArgs e)
         {
@@ -104,9 +130,39 @@ namespace CashPredictor
             UpdateFieldsAfterReoccuringSelectionChanged();
         }
 
-        private void onCheckedChange(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // TODO: Add save option on Outgoings form
+            dataTableisDirty = true;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (formIsDirty)
+            {
+                // Form data has changed
+                // Lets ask if they want to save before they exit
+            }
+
+            if (dataTableisDirty)
+            {
+                // Data table has changed so save changes to the local XML file
+                if (SaveData() == 0)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    // data did not save so report error then close form gracefully
+                }
+            }
+        }
+
+        private void fldReoccuring_OnCheckedChange(object sender, EventArgs e)
         {
             UpdateFieldsAfterReoccuringSelectionChanged();
         }
+
+        #endregion Form Events
     }
 }

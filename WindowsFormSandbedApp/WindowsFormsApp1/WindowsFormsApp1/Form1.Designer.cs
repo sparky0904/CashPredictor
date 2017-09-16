@@ -153,7 +153,6 @@
             this.Text = "Form1";
             this.Activated += new System.EventHandler(this.onActivated);
             this.Load += new System.EventHandler(this.eventFormLoad);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

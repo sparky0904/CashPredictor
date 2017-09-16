@@ -114,7 +114,7 @@
             this.fldReoccuring.TabIndex = 8;
             this.fldReoccuring.Text = "Reoccuring";
             this.fldReoccuring.UseVisualStyleBackColor = true;
-            this.fldReoccuring.CheckedChanged += new System.EventHandler(this.onCheckedChange);
+            this.fldReoccuring.CheckedChanged += new System.EventHandler(this.fldReoccuring_OnCheckedChange);
             // 
             // label4
             // 
@@ -159,6 +159,7 @@
             this.btnCancel.TabIndex = 14;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -168,6 +169,7 @@
             this.btnSave.TabIndex = 15;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label5
             // 
