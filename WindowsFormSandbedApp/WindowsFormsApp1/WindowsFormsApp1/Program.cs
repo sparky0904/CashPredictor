@@ -10,7 +10,7 @@ namespace CashPredictor
     internal static class Program
     {
         public static clsOutgoingsManager OutgoingsManager = new clsOutgoingsManager();
-        public static DataSet TheDataset = new DataSet("Data");
+        // public static DataSet TheDataset = new DataSet("Data");
 
         // public static clsParameters Parameters = new clsParameters();
 

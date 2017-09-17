@@ -15,10 +15,10 @@ namespace CashPredictor
         {
             // Create the dataset
             // OutgoingsDataSet = CreateTheDataSet();
-            CreateTheDataSet(ref Program.TheDataset);
+            // CreateTheDataSet(Program.TheDataset);
 
             // Load the data into the dataset from the device
-            LoadData();
+            // LoadData();
         }
 
         // Create the schema and data set for the app
@@ -82,14 +82,15 @@ namespace CashPredictor
             // Load from test harness
             // return (clsTestHarness.SetUpOutgoingsData());
 
-            return Program.TheDataset;
+            return new DataSetv1();
         }
 
         // Load the outgoings data from the device
         public static int LoadData()
         {
-            DataSet theDataset = Program.TheDataset;
-            DataTable theOutGoingsTable = theDataset.Tables["Outgoings"]; ;
+            DataSet ds = new DataSetv1();
+            //DataTable tb = ds.Tables["Outgoings"]; ;
+            DataTable tb = new DataTable();
 
             // We use XML to store the data
             int returnValue = 0;
@@ -101,12 +102,12 @@ namespace CashPredictor
             System.IO.FileStream stream = new System.IO.FileStream(filename, System.IO.FileMode.Open);
 
             // Write to the file with the WriteXML method
-            theOutGoingsTable.ReadXml(stream);
+            tb.ReadXml(stream);
 
             // Copy the data to the OutGoings Dataset
-            foreach (DataRow row in theOutGoingsTable.Rows)
+            foreach (DataRow row in tb.Rows)
             {
-                theDataset.Tables["Outgoings"].Rows.Add(row);
+                ds.Tables["Outgoings"].Rows.Add(row);
             }
 
             return returnValue;
@@ -129,7 +130,7 @@ namespace CashPredictor
             System.IO.FileStream stream = new System.IO.FileStream(filename, System.IO.FileMode.Create);
 
             // Write to the file with the WriteXML method
-            theOutGoingsTable.WriteXml(stream);
+            theOutGoingsTable.WriteXml(stream, XmlWriteMode.WriteSchema);
 
             return returnValue;
         }

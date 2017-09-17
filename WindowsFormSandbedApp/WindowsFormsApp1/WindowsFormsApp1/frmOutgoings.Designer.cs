@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.fldOutgoings = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fldDescription = new System.Windows.Forms.TextBox();
@@ -44,15 +45,24 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.fldFrequency = new System.Windows.Forms.TextBox();
+            this.dataSetv1 = new CashPredictor.DataSetv1();
+            this.dataSetv1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.outGoingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetv1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetv1BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outGoingsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // fldOutgoings
             // 
+            this.fldOutgoings.DataSource = this.outGoingsBindingSource;
+            this.fldOutgoings.DisplayMember = "Description";
             this.fldOutgoings.FormattingEnabled = true;
             this.fldOutgoings.Location = new System.Drawing.Point(27, 33);
             this.fldOutgoings.Name = "fldOutgoings";
             this.fldOutgoings.Size = new System.Drawing.Size(141, 394);
             this.fldOutgoings.TabIndex = 0;
+            this.fldOutgoings.ValueMember = "Description";
             this.fldOutgoings.SelectedIndexChanged += new System.EventHandler(this.onSelectedIndexChanged);
             // 
             // label1
@@ -141,6 +151,7 @@
             this.btnNew.TabIndex = 11;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnDelete
             // 
@@ -187,6 +198,22 @@
             this.fldFrequency.Size = new System.Drawing.Size(32, 20);
             this.fldFrequency.TabIndex = 17;
             // 
+            // dataSetv1
+            // 
+            this.dataSetv1.DataSetName = "DataSetv1";
+            this.dataSetv1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataSetv1BindingSource
+            // 
+            this.dataSetv1BindingSource.DataSource = this.dataSetv1;
+            this.dataSetv1BindingSource.Position = 0;
+            this.dataSetv1BindingSource.CurrentChanged += new System.EventHandler(this.dataSetv1BindingSource_CurrentChanged);
+            // 
+            // outGoingsBindingSource
+            // 
+            this.outGoingsBindingSource.DataMember = "OutGoings";
+            this.outGoingsBindingSource.DataSource = this.dataSetv1BindingSource;
+            // 
             // frmOutgoings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,6 +239,9 @@
             this.Text = "frmOutgoings";
             this.Activated += new System.EventHandler(this.onActiviated);
             this.Load += new System.EventHandler(this.OnLoad);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetv1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetv1BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outGoingsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,5 +265,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox fldFrequency;
+        private System.Windows.Forms.BindingSource outGoingsBindingSource;
+        private System.Windows.Forms.BindingSource dataSetv1BindingSource;
+        private DataSetv1 dataSetv1;
     }
 }

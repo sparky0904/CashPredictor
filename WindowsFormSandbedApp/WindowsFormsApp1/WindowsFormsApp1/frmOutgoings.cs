@@ -16,6 +16,7 @@ namespace CashPredictor
         private bool formIsDirty = false;
         private bool dataTableisDirty = false;
         private bool isEditingForm = false;
+        private bool creatingNewEntry = false;
 
         private DataTable OutgoingsTable = Program.OutgoingsManager.GetOutGoingsTable();
 
@@ -42,8 +43,11 @@ namespace CashPredictor
             fldDayOfWeekPaid.Items.Add("Friday");
             fldDayOfWeekPaid.Items.Add("Saturday");
 
-            fldOutgoings.DataSource = Program.OutgoingsManager.GetOutGoingsTable();
-            fldOutgoings.DisplayMember = "Description";
+            //fldOutgoings.DataSource = Program.OutgoingsManager.GetOutGoingsTable();
+            //fldOutgoings.DisplayMember = "Description";
+
+            creatingNewEntry = false;
+            isEditingForm = false;
         }
 
         // Refresh the fields so they represent the clicked entry in the list
@@ -79,6 +83,9 @@ namespace CashPredictor
         private void UpdateFieldsAfterReoccuringSelectionChanged()
         {
             btnCancel.Text = "Exit";
+            creatingNewEntry = false;
+            isEditingForm = false;
+
             if (fldReoccuring.Checked)
             {
                 fldDayPaid.Enabled = false;
@@ -97,9 +104,54 @@ namespace CashPredictor
         {
         }
 
-        private int SaveData()
+        private int SaveSingleRecord()
         {
-            return (clsOutgoingsManagerDB.SaveData(OutgoingsTable));
+            int returnValue = 0;
+
+            // Check if were updtaing an exisiting record
+            if (creatingNewEntry)
+            {
+                // New record
+                // Insert a new record
+
+                // Create an instance of the DataSet:
+                DataSetv1 myDataSet = new DataSetv1();
+
+                // To add a row we first need a strongly typed row object.
+                //The only difficult thing about creating a row is working out exactly what the method is that creates the row object. In general, while the row data type belongs to the DataSet, the creation method belongs to the table that the row belongs to
+                // DataSetv1.OutGoingsRow row = myDataSet.OutGoings.NewOutGoingsRow();
+                DataSetv1.OutGoingsRow row = dataSetv1.OutGoings.NewOutGoingsRow();
+
+                // Now we can add the data
+                row.Description = this.fldDescription.Text;
+                row.Amount = Convert.ToDouble(this.fldAmount.Text);
+                row.DayPaid = Convert.ToInt16(this.fldDayPaid.SelectedValue);
+                row.ReOccuring = Convert.ToBoolean(this.fldReoccuring.Checked);
+                row.DayOfWeekPaid = Convert.ToInt16(this.fldDayOfWeekPaid.SelectedIndex);
+                row.Frequency = Convert.ToInt16(this.fldFrequency.Text);
+
+                // save the row to the dataset
+                // myDataSet.OutGoings.Rows.Add(row);
+
+                dataSetv1.OutGoings.Rows.Add(row);
+
+                myDataSet.AcceptChanges();
+
+                SaveDataToDataSet();
+            }
+            else
+            {
+                // We are updating an exisitn record
+
+                // Update exisiting row in dataset
+            }
+
+            return returnValue;
+        }
+
+        private int SaveDataToDataSet()
+        {
+            return (clsOutgoingsManagerDB.SaveData());
         }
 
         private void OnFormDataHAsChanged()
@@ -133,21 +185,33 @@ namespace CashPredictor
         private void btnSave_Click(object sender, EventArgs e)
         {
             // TODO: Add save option on Outgoings form
+            SaveSingleRecord();
             dataTableisDirty = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (formIsDirty)
+            // Lets ask if they want to save before they exit
+            bool saveData = true;
+
+            // if we have changed some data or we are editing then dont exit form
+            // we need ask if we are saving the data
+            if (formIsDirty || isEditingForm)
             {
-                // Form data has changed
-                // Lets ask if they want to save before they exit
+                // set flags
+                isEditingForm = false;
+                formIsDirty = false;
+                creatingNewEntry = false;
+
+                MessageBox.Show("Changes  made would you like to save?");
+
+                //TODO: Set up Save data on outgoings form if we cancel
             }
 
             if (dataTableisDirty)
             {
                 // Data table has changed so save changes to the local XML file
-                if (SaveData() == 0)
+                if (SaveSingleRecord() == 0)
                 {
                     this.Close();
                 }
@@ -163,6 +227,25 @@ namespace CashPredictor
             UpdateFieldsAfterReoccuringSelectionChanged();
         }
 
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            // Set up flags
+            isEditingForm = true;
+            creatingNewEntry = true;
+
+            // Set up buttons
+
+            // Clear fields
+        }
+
         #endregion Form Events
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void dataSetv1BindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+        }
     }
 }
