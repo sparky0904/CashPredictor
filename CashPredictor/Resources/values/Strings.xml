@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">CashPredictor</string>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="ApplicationName">CashPredictor</string>
+
+  <string name="DaysOfTheWeek_Prompt">Choose a Day</string>
+  <string-array name="DaysOfTheWeek">
+    <item>Sunday</item>
+    <item>Monday</item>
+    <item>Tuesday</item>
+    <item>Wednesday</item>
+    <item>Thursday</item>
+    <item>Friday</item>
+    <item>Saturday</item>
+  </string-array>
 </resources>

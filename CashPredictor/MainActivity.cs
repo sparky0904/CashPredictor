@@ -11,7 +11,7 @@ namespace CashPredictor
     [Activity(Label = "CashPredictor", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        private int count = 1;
+        private Button mBtnUpdateOutgoings;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -20,11 +20,21 @@ namespace CashPredictor
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
+            mBtnUpdateOutgoings = FindViewById<Button>(Resource.Id.btnUpdateOutgoings);
 
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            mBtnUpdateOutgoings.Click += (object sender, EventArgs e) =>
+            {
+                /*
+                 * FragmentTransaction transaction = FragmentManager.BeginTransaction();
+                // Pull up dialog
+                Code.clsListOugoingsDialog ListOutgoingsDialog = new Code.clsListOugoingsDialog();
+                ListOutgoingsDialog.Show(transaction, "List Outgoings Dialog");
+                */
+
+                var ListOutgoingsActivity = new Intent(this, typeof(Code.clsListOutgoings_Activity));
+
+                StartActivity(ListOutgoingsActivity);
+            };
         }
     }
 }
