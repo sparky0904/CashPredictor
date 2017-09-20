@@ -16,6 +16,7 @@ namespace CashPredictor.Code
     internal class clsListOutgoings_Activity : Activity
     {
         private Button mBtnAddNewOutgoing;
+        private Button mBtnCancel;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,14 +25,26 @@ namespace CashPredictor.Code
             // Create the view
             SetContentView(Resource.Layout.ListOutgoings);
 
+            ListView outgoingsListView = FindViewById<ListView>(Resource.Id.OutgoingsListView);
+
+            // TODO: Hook up the List of outgoing classes to the ListView
+
             // Hook up the add new button
             mBtnAddNewOutgoing = FindViewById<Button>(Resource.Id.btnAddNewOutgoing);
+            mBtnCancel = FindViewById<Button>(Resource.Id.btnCancel);
 
             mBtnAddNewOutgoing.Click += (object sender, EventArgs e) =>
             {
                 var OutGoingActivity = new Intent(this, typeof(Code.clsOutgoing_Activity));
 
                 StartActivity(OutGoingActivity);
+            };
+
+            // Hook up Cancel button
+            mBtnCancel.Click += (object sender, EventArgs e) =>
+            {
+                Finish();
+                // Console.WriteLine("Clicked Cancel button in ListOutgoing activity.");
             };
         }
     }

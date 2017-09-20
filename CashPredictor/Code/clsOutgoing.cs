@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace CashPredictor.Code
 {
-    internal class clsOutgoing
+    public class clsOutgoing
     {
         private string mDescription;
         private double mAmount;
@@ -20,6 +20,8 @@ namespace CashPredictor.Code
         private bool mReoccuring;
         private int mDayOfWeekLeavesAccount;
         private int mFrequency;
+
+        private enum mDayOfWeek { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
 
         public string Description { get => mDescription; set => mDescription = value; }
         public double Amount { get => mAmount; set => mAmount = value; }

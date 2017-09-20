@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using System.Collections.Generic;
 
 namespace CashPredictor
 {
@@ -12,6 +13,7 @@ namespace CashPredictor
     public class MainActivity : Activity
     {
         private Button mBtnUpdateOutgoings;
+        // public List<Code.clsOutgoing> Outgoings = new List<Code.clsOutgoing>();
 
         protected override void OnCreate(Bundle bundle)
         {

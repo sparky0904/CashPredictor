@@ -57,6 +57,7 @@
     <Compile Include="Code\clsListOutgoings_Activity.cs" />
     <Compile Include="Code\clsOutgoing.cs" />
     <Compile Include="Code\clsOutgoingDialog.cs" />
+    <Compile Include="Code\clsOutgoingManager.cs" />
     <Compile Include="Code\clsOutgoing_Activity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
