@@ -133,11 +133,23 @@ namespace CashPredictor
 			// aapt resource value: 0x7f060012
 			public const int textView7 = 2131099666;
 			
+			// aapt resource value: 0x7f060016
+			public const int txtAmount = 2131099670;
+			
 			// aapt resource value: 0x7f060006
 			public const int txtBalance = 2131099654;
 			
+			// aapt resource value: 0x7f060017
+			public const int txtDayLeavesAccount = 2131099671;
+			
+			// aapt resource value: 0x7f060015
+			public const int txtDescription = 2131099669;
+			
 			// aapt resource value: 0x7f060005
 			public const int txtPayDate = 2131099653;
+			
+			// aapt resource value: 0x7f060018
+			public const int txtReoccuring = 2131099672;
 			
 			static Id()
 			{
@@ -160,6 +172,9 @@ namespace CashPredictor
 			
 			// aapt resource value: 0x7f030002
 			public const int Outgoing = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int OutgoingListView_Row = 2130903043;
 			
 			static Layout()
 			{

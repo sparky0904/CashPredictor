@@ -58,6 +58,7 @@
     <Compile Include="Code\clsOutgoing.cs" />
     <Compile Include="Code\clsOutgoingDialog.cs" />
     <Compile Include="Code\clsOutgoingManager.cs" />
+    <Compile Include="Code\clsOutGoingsListViewAdapter.cs" />
     <Compile Include="Code\clsOutgoing_Activity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -71,6 +72,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ListOutgoings.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\OutgoingListView_Row.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
