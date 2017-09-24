@@ -14,7 +14,7 @@
       android:inputType="numberDecimal"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/editText2" />
+      android:id="@+id/fldCurrentBalance" />
   <TextView
       android:text="Predicted balance on payday which is xx"
       android:textAppearance="?android:attr/textAppearanceMedium"
@@ -23,12 +23,12 @@
       android:id="@+id/txtPayDate"
       android:gravity="center_horizontal" />
   <TextView
-    android:text="£xxx.xx"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/txtBalance"
-    android:gravity="center_horizontal" />
+      android:text="£xxx.xx"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/txtBalance"
+      android:gravity="center_horizontal" />
   <Button
       android:id="@+id/btnUpdateOutgoings"
       android:layout_width="match_parent"
@@ -46,5 +46,5 @@
       android:minHeight="25px"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:id="@+id/OutgoingsListView" />
+      android:id="@+id/fldOutgoingsListView" />
 </LinearLayout>

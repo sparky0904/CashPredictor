@@ -53,13 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\clsDatabase.cs" />
     <Compile Include="Code\clsListOugoingsDialog.cs" />
     <Compile Include="Code\clsListOutgoings_Activity.cs" />
     <Compile Include="Code\clsOutgoing.cs" />
+    <Compile Include="Code\clsOutgoingDB.cs" />
     <Compile Include="Code\clsOutgoingDialog.cs" />
-    <Compile Include="Code\clsOutgoingManager.cs" />
+    <Compile Include="Code\clsOutgoingListItem.cs" />
     <Compile Include="Code\clsOutGoingsListViewAdapter.cs" />
     <Compile Include="Code\clsOutgoing_Activity.cs" />
+    <Compile Include="Code\clsTestHarness.cs" />
+    <Compile Include="Code\HelperMEthods.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

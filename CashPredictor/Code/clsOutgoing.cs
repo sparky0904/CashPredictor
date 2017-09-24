@@ -29,5 +29,10 @@ namespace CashPredictor.Code
         public bool Reoccuring { get => mReoccuring; set => mReoccuring = value; }
         public int DayOfWeekLeavesAccount { get => mDayOfWeekLeavesAccount; set => mDayOfWeekLeavesAccount = value; }
         public int Frequency { get => mFrequency; set => mFrequency = value; }
+
+        public void Save()
+        {
+            clsOutgoingDB.Save(this);
+        }
     }
 }

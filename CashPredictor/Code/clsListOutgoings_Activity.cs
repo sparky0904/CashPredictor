@@ -18,8 +18,17 @@ namespace CashPredictor.Code
         private Button mBtnAddNewOutgoing;
         private Button mBtnCancel;
 
-        private List<clsOutgoing> mItems;
+        // private List<clsOutgoing> mItems;
         private ListView mListView;
+
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+
+            clsOutGoingsListViewAdapter adapter = new clsOutGoingsListViewAdapter(this, clsOutgoingDB.GetOutgoings());
+
+            mListView.Adapter = adapter;
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -31,15 +40,13 @@ namespace CashPredictor.Code
             // TODO: Hook up the List of outgoing classes to the ListView
             mListView = FindViewById<ListView>(Resource.Id.OutgoingsListView);
 
-            mItems = new List<clsOutgoing>();
-            mItems.Add(new clsOutgoing() { Description = "Mortage", Amount = 650, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
-            mItems.Add(new clsOutgoing() { Description = "Car Loan", Amount = 250, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
-            mItems.Add(new clsOutgoing() { Description = "Sky TV", Amount = 74, DayleavesAccount = 13, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
-            mItems.Add(new clsOutgoing() { Description = "Pocket Money", Amount = 70, DayleavesAccount = 1, DayOfWeekLeavesAccount = 6, Frequency = 7, Reoccuring = true });
+            // mItems = new List<clsOutgoing>();
+            // clsDatabase _Database = clsDatabase.Instance();
 
             // ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, mItems);
 
-            clsOutGoingsListViewAdapter adapter = new clsOutGoingsListViewAdapter(this, mItems);
+            // clsOutGoingsListViewAdapter adapter = new clsOutGoingsListViewAdapter(this, mItems);
+            clsOutGoingsListViewAdapter adapter = new clsOutGoingsListViewAdapter(this, clsOutgoingDB.GetOutgoings());
 
             mListView.Adapter = adapter;
 
