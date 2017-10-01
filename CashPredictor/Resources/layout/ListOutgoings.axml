@@ -16,7 +16,7 @@
       android:id="@+id/btnAddNewOutgoing"
       android:layout_weight="45" />
   <Button
-      android:text="Cancel"
+      android:text="Back"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:id="@+id/btnCancel"

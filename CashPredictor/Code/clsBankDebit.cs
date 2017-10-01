@@ -12,21 +12,24 @@ using Android.Widget;
 
 namespace CashPredictor.Code
 {
-    public class clsOutgoingListItem
+    public class clsBankDebit
     {
         private string mDescription;
         private double mAmount;
         private int mDayLeavesAccount;
+        private DateTime mDateLeaveAccounts;
 
         public string Description { get => mDescription; set => mDescription = value; }
         public double Amount { get => mAmount; set => mAmount = value; }
         public int DayLeavesAccount { get => mDayLeavesAccount; set => mDayLeavesAccount = value; }
+        public DateTime DateLeaveAccounts { get => mDateLeaveAccounts; set => mDateLeaveAccounts = value; }
 
-        public clsOutgoingListItem(string _Description, double _Amount, int _DayLeavesAccount)
+        public clsBankDebit(string _Description, double _Amount, int _DayLeavesAccount, DateTime _DateLeavesAccount)
         {
             Description = _Description;
             Amount = _Amount;
             DayLeavesAccount = _DayLeavesAccount;
+            DateLeaveAccounts = _DateLeavesAccount;
         }
     }
 }

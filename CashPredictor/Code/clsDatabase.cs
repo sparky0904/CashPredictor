@@ -15,9 +15,9 @@ namespace CashPredictor.Code
     internal class clsDatabase
     {
         private static List<clsOutgoing> mOutgoings = new List<clsOutgoing>();
-        private static List<clsOutgoingListItem> mListOfAllOutgoings = new List<clsOutgoingListItem>();
+        private static List<clsBankDebit> mBankDebits = new List<clsBankDebit>();
 
-        public List<clsOutgoingListItem> ListOfAllOutgoings { get => mListOfAllOutgoings; set => mListOfAllOutgoings = value; }
+        public List<clsBankDebit> BankDebits { get => mBankDebits; set => mBankDebits = value; }
         public List<clsOutgoing> Outgoings { get => mOutgoings; set => mOutgoings = value; }
 
         #region Singleton
@@ -43,12 +43,12 @@ namespace CashPredictor.Code
 
         #region Methods
 
-        public int NewOutgoing(clsOutgoing _Outgoing)
+        public int NewOutgoing(clsOutgoing outgoing)
         {
             int ReturnValue = 0;
 
             //TODO: Check if outgoing were try to add already exists
-            mOutgoings.Add(_Outgoing);
+            mOutgoings.Add(outgoing);
 
             return ReturnValue;
         }
