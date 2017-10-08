@@ -52,7 +52,14 @@ namespace CashPredictor
 
             // Set the Payday
             TextView txtPayDate = FindViewById<TextView>(Resource.Id.txtPayDate);
-            txtPayDate.Text = "Pay Day is set for: " + parameters.PayDay.ToString() + Code.HelperMethods.DaySuffix(parameters.PayDay).ToString();
+            string myText = "";
+
+            myText = "Pay Day is the: " + parameters.PayDay.ToString() + Code.HelperMethods.DaySuffix(parameters.PayDay).ToString();
+
+            // Set the todays day text
+            myText += " - Today is the " + DateTime.Now.Day.ToString() + Code.HelperMethods.DaySuffix(DateTime.Now.Day);
+
+            txtPayDate.Text = myText;
         }
 
         private void MfldCurrentBalance_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)

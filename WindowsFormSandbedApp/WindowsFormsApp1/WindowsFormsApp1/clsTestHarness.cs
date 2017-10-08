@@ -43,10 +43,10 @@ namespace CashPredictor
             outgoingsTable.Rows.Add("Google Drive", 1.59, 24, 0, 0, 0);
             outgoingsTable.Rows.Add("Amazon Music", 7.99, 26, 0, 0, 0);
             outgoingsTable.Rows.Add("PAYPAL *POSTCODELO ", 10.35, 14, 0, 0, 0);
+            outgoingsTable.Rows.Add("Petrol", 60, 1, 0, 0, 0);
 
             // Reoccuring weekly
             outgoingsTable.Rows.Add("Pocket Money", 70, 0, 1, 5, 7);
-            outgoingsTable.Rows.Add("Petrol", 20, 0, 1, 0, 7);
 
             // Create a data table
             DataTable outgoingsListTable = theOutGoingsListTable;

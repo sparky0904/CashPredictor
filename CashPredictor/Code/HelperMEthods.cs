@@ -82,16 +82,16 @@ namespace CashPredictor.Code
             // Get reference to paramaters
             clsParameters parameters = clsParameters.Instance();
 
+            DateTime Today = DateTime.Now;
+
+            // Today = new DateTime(2017, 10, 27);
+
+            int PayDay = parameters.PayDay;
+            bool PayDayIsNextMonth = Today.Day > PayDay;
+
             // Cycle through the outgoings
             foreach (clsOutgoing Outgoing in clsOutgoingDB.GetOutgoings())
             {
-                DateTime Today = DateTime.Now;
-
-                // Today = new DateTime(2017, 10, 27);
-
-                int PayDay = parameters.PayDay;
-                bool PayDayIsNextMonth = Today.Day > PayDay;
-
                 if (Outgoing.Reoccuring == true)
                 {
                     DateTime TodayDateToUse = Today;
@@ -149,13 +149,22 @@ namespace CashPredictor.Code
                 {
                     // If not re-occuring, add to the list if before next payday
                     DateTime DateLeavesAccount = new DateTime(Today.Year, Today.Month, Outgoing.DayleavesAccount);
+
                     // check if date in outgoing is next month, if so need to ass one to the month
                     if (Outgoing.DayleavesAccount < Today.Day)
                     {
                         DateLeavesAccount = DateLeavesAccount.AddMonths(1);
                     }
 
-                    ListOfAllBankDebits.Add(new clsBankDebit(Outgoing.Description, Outgoing.Amount, Outgoing.DayleavesAccount, DateLeavesAccount));
+                    bool saveBankDebit = true;
+
+                    if (PayDayIsNextMonth && (DateLeavesAccount.Day > PayDay)) { saveBankDebit = false; }
+                    if (!PayDayIsNextMonth && (DateLeavesAccount.Day < Today.Day)) { saveBankDebit = false; }
+
+                    if (saveBankDebit)
+                    {
+                        ListOfAllBankDebits.Add(new clsBankDebit(Outgoing.Description, Outgoing.Amount, Outgoing.DayleavesAccount, DateLeavesAccount));
+                    }
                 }
             }
 

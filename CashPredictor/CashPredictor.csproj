@@ -56,6 +56,7 @@
     <Compile Include="Code\clsBankDebitDB.cs" />
     <Compile Include="Code\clsBankDebitsListViewAdapter.cs" />
     <Compile Include="Code\clsDatabase.cs" />
+    <Compile Include="Code\clsHandleSMSMessage.cs" />
     <Compile Include="Code\clsListOugoingsDialog.cs" />
     <Compile Include="Code\clsListOutgoings_Activity.cs" />
     <Compile Include="Code\clsOutgoing.cs" />

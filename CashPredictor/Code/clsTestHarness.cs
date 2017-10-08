@@ -61,10 +61,10 @@ namespace CashPredictor.Code
 
             clsOutgoingDB.New(new clsOutgoing() { Description = "Amazon Music", Amount = 7.99, DayleavesAccount = 26, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
 
+            clsOutgoingDB.New(new clsOutgoing() { Description = "Petrol", Amount = 70, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 28, Reoccuring = false });
+
             // Recoccuring
             clsOutgoingDB.New(new clsOutgoing() { Description = "Pocket Money", Amount = 70, DayleavesAccount = 1, DayOfWeekLeavesAccount = 5, Frequency = 7, Reoccuring = true });
-
-            clsOutgoingDB.New(new clsOutgoing() { Description = "Petrol", Amount = 70, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 28, Reoccuring = true });
         }
     }
 }
