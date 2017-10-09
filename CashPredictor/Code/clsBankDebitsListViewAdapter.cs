@@ -54,7 +54,7 @@ namespace CashPredictor.Code
             }
 
             TextView txDescription = row.FindViewById<TextView>(Resource.Id.txtDescription);
-            txDescription.Text = mItems[position].Description;
+            txDescription.Text = "[" + mItems[position].Description + "]";
 
             TextView txtAmount = row.FindViewById<TextView>(Resource.Id.txtAmount);
             txtAmount.Text = mItems[position].Amount.ToString();

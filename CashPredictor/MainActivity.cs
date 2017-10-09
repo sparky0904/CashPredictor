@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Telephony;
 using System.Collections.Generic;
 
 // TODO: Add option for one off payments, i.e. holiday, or school presents
@@ -14,9 +15,11 @@ namespace CashPredictor
     [Activity(Label = "CashPredictor", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        private Button mBtnUpdateOutgoings;
         public List<Code.clsOutgoing> Outgoings = new List<Code.clsOutgoing>();
+        public Code.ClsSMSBroadcastReceiver SMSBroadcastReceiver;
+
         private ListView mListView;
+        private Button mBtnUpdateOutgoings;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -60,6 +63,17 @@ namespace CashPredictor
             myText += " - Today is the " + DateTime.Now.Day.ToString() + Code.HelperMethods.DaySuffix(DateTime.Now.Day);
 
             txtPayDate.Text = myText;
+
+            // Set up SMS broadcast receiver
+            /*
+             IntentFilter filter = new IntentFilter(Intent.ActionQuickClock);
+            filter.AddAction("android.provider.Telephony.SMS_RECEIVED");
+            RegisterReceiver(SMSBroadcastReceiver, filter);
+            */
+            SMSBroadcastReceiver = new Code.ClsSMSBroadcastReceiver();
+            RegisterReceiver(SMSBroadcastReceiver, new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+
+            // return StartCommandResult.Sticky;
         }
 
         private void MfldCurrentBalance_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
@@ -80,6 +94,18 @@ namespace CashPredictor
             UpdateBalance();
         }
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+        }
+
+        protected override void OnDestroy()
+        {
+            UnregisterReceiver(SMSBroadcastReceiver);
+
+            base.OnDestroy();
+        }
+
         protected override void OnResume()
         {
             base.OnResume();
@@ -89,6 +115,18 @@ namespace CashPredictor
             mListView.Adapter = adapter;
 
             mListView.RefreshDrawableState();
+
+            if (SMSBroadcastReceiver == null)
+            {
+                SMSBroadcastReceiver = new Code.ClsSMSBroadcastReceiver();
+                RegisterReceiver(SMSBroadcastReceiver, new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+            }
+        }
+
+        protected override void OnPause()
+        {
+            // UnregisterReceiver(SMSBroadcastReceiver);
+            base.OnPause();
         }
 
         // Updates the balance

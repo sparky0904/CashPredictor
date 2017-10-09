@@ -25,7 +25,7 @@ namespace CashPredictor.Code
             clsOutgoingDB.New(new clsOutgoing() { Description = "Santander Credit", Amount = 200, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
 
             clsOutgoingDB.New(new clsOutgoing() { Description = "AIL QUOTE ME HAPPY", Amount = 55.04, DayleavesAccount = 24, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
-            clsOutgoingDB.New(new clsOutgoing() { Description = "AVIVA", Amount = 83.78, DayleavesAccount = 11, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
+            clsOutgoingDB.New(new clsOutgoing() { Description = "AVIVA", Amount = 83.78, DayleavesAccount = 09, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
 
             clsOutgoingDB.New(new clsOutgoing() { Description = "British Gas", Amount = 169.84, DayleavesAccount = 5, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
 
