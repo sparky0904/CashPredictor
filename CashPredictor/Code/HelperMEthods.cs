@@ -177,7 +177,7 @@ namespace CashPredictor.Code
                 ListIsInOrder = true;
                 for (int i = 0; i < ListOfAllBankDebits.Count - 1; i++)
                 {
-                    if (ListOfAllBankDebits[i + 1].DateLeaveAccounts < ListOfAllBankDebits[i].DateLeaveAccounts)
+                    if (ListOfAllBankDebits[i + 1].DateLeaveAccount < ListOfAllBankDebits[i].DateLeaveAccount)
                     {
                         // Swap the entries over
                         tempBankDebit = ListOfAllBankDebits[i];

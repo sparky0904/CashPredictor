@@ -20,6 +20,7 @@ namespace CashPredictor
 
         private ListView mListView;
         private Button mBtnUpdateOutgoings;
+        private bool mDataLoaded = false;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -29,7 +30,11 @@ namespace CashPredictor
             Code.clsParameters parameters = Code.clsParameters.Instance();
 
             // Add some data for test purposes
-            Code.clsTestHarness.AddOutgoings();
+            if (!mDataLoaded)
+            {
+                Code.clsTestHarness.AddOutgoings();
+                mDataLoaded = true;
+            }
 
             // Calculate the outogings so we can show balance !!
             Code.HelperMethods.CalculateListOfBankDebits();

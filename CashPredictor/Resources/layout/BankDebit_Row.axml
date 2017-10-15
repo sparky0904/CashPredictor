@@ -7,27 +7,32 @@
     android:paddingTop="2dp"
     android:paddingBottom="2dp"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:weightSum="100">
+    android:paddingRight="5dp">
   <TextView
       android:text="Description"
       android:layout_width="wrap_content"
-      android:layout_weight="50"
+      android:layout_weight="70"
       android:layout_height="wrap_content"
       android:id="@+id/txtDescription"
       android:gravity="left" />
   <TextView
       android:text="Amount"
       android:layout_width="wrap_content"
-      android:layout_weight="25"
+      android:layout_weight="5"
       android:layout_height="wrap_content"
       android:id="@+id/txtAmount"
       android:gravity="right" />
   <TextView
       android:text="Day"
       android:layout_width="wrap_content"
-      android:layout_weight="25"
+      android:layout_weight="5"
       android:layout_height="wrap_content"
       android:id="@+id/txtDayLeavesAccount"
       android:gravity="right" />
+  <CheckBox
+      android:text=""
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:id="@+id/txtIncudeInCalculation" />
 </LinearLayout>

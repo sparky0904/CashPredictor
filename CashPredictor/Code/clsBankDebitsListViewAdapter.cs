@@ -57,10 +57,13 @@ namespace CashPredictor.Code
             txDescription.Text = "[" + mItems[position].Description + "]";
 
             TextView txtAmount = row.FindViewById<TextView>(Resource.Id.txtAmount);
-            txtAmount.Text = mItems[position].Amount.ToString();
+            txtAmount.Text = mItems[position].Amount.ToString("0.00");
 
             TextView txtDay = row.FindViewById<TextView>(Resource.Id.txtDayLeavesAccount);
             txtDay.Text = mItems[position].DayLeavesAccount.ToString() + HelperMethods.DaySuffix(mItems[position].DayLeavesAccount);
+
+            CheckBox txtIncudeInCalculation = row.FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
+            txtIncudeInCalculation.Checked = mItems[position].IncludeInCalculation;
 
             return row;
         }
