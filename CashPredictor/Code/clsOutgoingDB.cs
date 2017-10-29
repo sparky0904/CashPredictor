@@ -14,6 +14,12 @@ namespace CashPredictor.Code
 {
     internal class clsOutgoingDB
     {
+        public static void ClearOutGoings()
+        {
+            clsDatabase DatabaseInstance = clsDatabase.Instance();
+            DatabaseInstance.ClearOutgoings();
+        }
+
         public static void New(clsOutgoing _OutgoingRecord)
         {
             clsDatabase DatabaseInstance = clsDatabase.Instance();

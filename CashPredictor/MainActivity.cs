@@ -7,12 +7,14 @@ using Android.Widget;
 using Android.OS;
 using Android.Telephony;
 using System.Collections.Generic;
+using Android.Content.Res;
 
 // TODO: Add option for one off payments, i.e. holiday, or school presents
 
 namespace CashPredictor
 {
-    [Activity(Label = "CashPredictor", MainLauncher = true, Icon = "@drawable/icon")]
+    // [Activity(Label = "CashPredictor", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "CashPredictor", MainLauncher = true, Icon = "@drawable/icon", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     public class MainActivity : Activity
     {
         public List<Code.clsOutgoing> Outgoings = new List<Code.clsOutgoing>();
@@ -32,7 +34,7 @@ namespace CashPredictor
             // Add some data for test purposes
             if (!mDataLoaded)
             {
-                Code.clsTestHarness.AddOutgoings();
+                Code.clsTestHarness.LoadTestOutgoings();
                 mDataLoaded = true;
             }
 
@@ -77,8 +79,12 @@ namespace CashPredictor
             */
             SMSBroadcastReceiver = new Code.ClsSMSBroadcastReceiver();
             RegisterReceiver(SMSBroadcastReceiver, new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        }
 
-            // return StartCommandResult.Sticky;
+        // Handles any configuration changes including rotation of the screen
+        public override void OnConfigurationChanged(Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
         }
 
         private void MfldCurrentBalance_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)

@@ -58,6 +58,11 @@ namespace CashPredictor.Code
             return mOutgoings;
         }
 
+        public void ClearOutgoings()
+        {
+            mOutgoings.Clear();
+        }
+
         #endregion Methods
     }
 }

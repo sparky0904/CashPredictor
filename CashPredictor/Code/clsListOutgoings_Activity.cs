@@ -37,13 +37,8 @@ namespace CashPredictor.Code
             // Create the view
             SetContentView(Resource.Layout.ListOutgoings);
 
-            // TODO: Hook up the List of outgoing classes to the ListView
+            // Hook up the List of outgoing classes to the ListView
             mListView = FindViewById<ListView>(Resource.Id.OutgoingsListView);
-
-            // mItems = new List<clsOutgoing>();
-            // clsDatabase _Database = clsDatabase.Instance();
-
-            // ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, mItems);
 
             // clsOutGoingsListViewAdapter adapter = new clsOutGoingsListViewAdapter(this, mItems);
             clsOutGoingsListViewAdapter adapter = new clsOutGoingsListViewAdapter(this, clsOutgoingDB.GetOutgoings());

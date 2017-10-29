@@ -14,8 +14,10 @@ namespace CashPredictor.Code
 {
     internal class clsTestHarness
     {
-        public static void AddOutgoings()
+        public static void LoadTestOutgoings()
         {
+            clsOutgoingDB.ClearOutGoings(); // Clear the outgoings before we load new ones
+
             clsOutgoingDB.New(new clsOutgoing() { Description = "Mortage", Amount = 684.45, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
 
             clsOutgoingDB.New(new clsOutgoing() { Description = "Car Loan", Amount = 280.52, DayleavesAccount = 1, DayOfWeekLeavesAccount = 0, Frequency = 0, Reoccuring = false });
