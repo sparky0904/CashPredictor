@@ -54,7 +54,7 @@ namespace CashPredictor.Code
             }
 
             TextView txDescription = row.FindViewById<TextView>(Resource.Id.txtDescription);
-            txDescription.Text = "[" + mItems[position].Description + "]";
+            txDescription.Text = "" + mItems[position].Description + "";
 
             TextView txtAmount = row.FindViewById<TextView>(Resource.Id.txtAmount);
             txtAmount.Text = mItems[position].Amount.ToString("0.00");
@@ -64,6 +64,9 @@ namespace CashPredictor.Code
 
             CheckBox txtIncudeInCalculation = row.FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
             txtIncudeInCalculation.Checked = mItems[position].IncludeInCalculation;
+
+            TextView txtID = row.FindViewById<TextView>(Resource.Id.txt_id);
+            txtID.Text = mItems[position].ID.ToString();
 
             return row;
         }

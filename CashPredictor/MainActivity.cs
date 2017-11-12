@@ -20,7 +20,7 @@ namespace CashPredictor
         public List<Code.clsOutgoing> Outgoings = new List<Code.clsOutgoing>();
         public Code.ClsSMSBroadcastReceiver SMSBroadcastReceiver;
 
-        private ListView mListView;
+        private ListView mBankDebitListView;
         private Button mBtnUpdateOutgoings;
         private bool mDataLoaded = false;
 
@@ -44,11 +44,12 @@ namespace CashPredictor
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            mListView = FindViewById<ListView>(Resource.Id.fldBankDebitsListView);
+            mBankDebitListView = FindViewById<ListView>(Resource.Id.fldBankDebitsListView);
 
             Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, Code.clsBankDebitDB.GetBankDebits());
 
-            mListView.Adapter = adapter;
+            mBankDebitListView.Adapter = adapter;
+            mBankDebitListView.ItemClick += BankDebitListView_ItemClick;
 
             mBtnUpdateOutgoings = FindViewById<Button>(Resource.Id.btnUpdateOutgoings);
             mBtnUpdateOutgoings.Click += (object sender, EventArgs e) =>
@@ -60,6 +61,9 @@ namespace CashPredictor
             EditText mfldCurrentBalance = FindViewById<EditText>(Resource.Id.fldCurrentBalance);
             mfldCurrentBalance.AfterTextChanged += MfldCurrentBalance_AfterTextChanged;
 
+            CheckBox mfldIncudeInCalculation = FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
+            // mfldIncudeInCalculation.CheckedChange += mfldIncudeInCalculation_CheckedChange;
+
             // Set the Payday
             TextView txtPayDate = FindViewById<TextView>(Resource.Id.txtPayDate);
             string myText = "";
@@ -70,15 +74,17 @@ namespace CashPredictor
             myText += " - Today is the " + DateTime.Now.Day.ToString() + Code.HelperMethods.DaySuffix(DateTime.Now.Day);
 
             txtPayDate.Text = myText;
+        }
 
-            // Set up SMS broadcast receiver
-            /*
-             IntentFilter filter = new IntentFilter(Intent.ActionQuickClock);
-            filter.AddAction("android.provider.Telephony.SMS_RECEIVED");
-            RegisterReceiver(SMSBroadcastReceiver, filter);
-            */
-            SMSBroadcastReceiver = new Code.ClsSMSBroadcastReceiver();
-            RegisterReceiver(SMSBroadcastReceiver, new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        private void BankDebitListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
+        }
+
+        private void mfldIncudeInCalculation_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            Console.WriteLine("Include in calculation clicked");
+            Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
         }
 
         // Handles any configuration changes including rotation of the screen
@@ -123,9 +129,9 @@ namespace CashPredictor
 
             Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, Code.clsBankDebitDB.GetBankDebits());
 
-            mListView.Adapter = adapter;
+            mBankDebitListView.Adapter = adapter;
 
-            mListView.RefreshDrawableState();
+            mBankDebitListView.RefreshDrawableState();
 
             if (SMSBroadcastReceiver == null)
             {
@@ -166,7 +172,10 @@ namespace CashPredictor
 
             foreach (Code.clsBankDebit OutgoingItem in DatabaseInstance.BankDebits)
             {
-                NewBalance -= OutgoingItem.Amount;
+                if (OutgoingItem.IncludeInCalculation)
+                {
+                    NewBalance -= OutgoingItem.Amount;
+                }
             }
 
             return NewBalance;
