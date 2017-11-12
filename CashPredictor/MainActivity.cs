@@ -70,7 +70,7 @@ namespace CashPredictor
 
             myText = "Pay Day is the: " + parameters.PayDay.ToString() + Code.HelperMethods.DaySuffix(parameters.PayDay).ToString();
 
-            // Set the todays day text
+            // Set the todays day text..
             myText += " - Today is the " + DateTime.Now.Day.ToString() + Code.HelperMethods.DaySuffix(DateTime.Now.Day);
 
             txtPayDate.Text = myText;
