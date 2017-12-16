@@ -18,7 +18,9 @@ namespace CashPredictor
     public class MainActivity : Activity
     {
         public List<Code.clsOutgoing> Outgoings = new List<Code.clsOutgoing>();
+
         public Code.ClsSMSBroadcastReceiver SMSBroadcastReceiver;
+        private Code.clsCashPredictor CashPredictorInstance = Code.clsCashPredictor.Instance();
 
         private ListView mBankDebitListView;
         private Button mBtnUpdateOutgoings;
@@ -76,6 +78,8 @@ namespace CashPredictor
             txtPayDate.Text = myText;
         }
 
+        #region Activity Form Events
+
         private void BankDebitListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
@@ -87,9 +91,9 @@ namespace CashPredictor
             Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
         }
 
-        // Handles any configuration changes including rotation of the screen
         public override void OnConfigurationChanged(Configuration newConfig)
         {
+            // Handles any configuration changes including rotation of the screen
             base.OnConfigurationChanged(newConfig);
         }
 
@@ -101,7 +105,7 @@ namespace CashPredictor
             if (editText.Text == "") { CurrentBalance = 0; } else { CurrentBalance = Convert.ToDouble(editText.Text); }
 
             TextView mtxtBalance = FindViewById<TextView>(Resource.Id.txtBalance);
-            mtxtBalance.Text = CalculateBalance(CurrentBalance).ToString();
+            mtxtBalance.Text = CashPredictorInstance.CalculateBalance(CurrentBalance).ToString();
         }
 
         protected override void OnRestart()
@@ -146,6 +150,8 @@ namespace CashPredictor
             base.OnPause();
         }
 
+        #endregion Activity Form Events
+
         // Updates the balance
         private void UpdateBalance()
         {
@@ -162,23 +168,9 @@ namespace CashPredictor
 
             // Update the text on screen
             TextView mtxtBalance = FindViewById<TextView>(Resource.Id.txtBalance);
-            mtxtBalance.Text = CalculateBalance(CurrentBalance).ToString();
-        }
 
-        private double CalculateBalance(double CurrentBalance)
-        {
-            double NewBalance = CurrentBalance;
-            Code.clsDatabase DatabaseInstance = Code.clsDatabase.Instance();
-
-            foreach (Code.clsBankDebit OutgoingItem in DatabaseInstance.BankDebits)
-            {
-                if (OutgoingItem.IncludeInCalculation)
-                {
-                    NewBalance -= OutgoingItem.Amount;
-                }
-            }
-
-            return NewBalance;
+            // Recalaculate the balance
+            mtxtBalance.Text = CashPredictorInstance.CalculateBalance(CurrentBalance).ToString();
         }
     }
 }
