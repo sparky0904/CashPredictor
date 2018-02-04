@@ -23,6 +23,8 @@ namespace CashPredictor.Code
         }
     }
 
+    // Link here has some code on how to enable the events for checkboxes http://www.appliedcodelog.com/2015/07/working-on-issues-with-listview-in.html
+
     public class clsBankDebitsListViewAdapter : BaseAdapter<clsBankDebit>, View.IOnClickListener
     {
         private List<clsBankDebit> mItems;
