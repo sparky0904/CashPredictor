@@ -14,6 +14,8 @@ namespace CashPredictor
     {
         private Form callingForm;
 
+        public Form CallingForm { get => callingForm; set => callingForm = value; }
+
         public frmChangePayDay()
         {
             InitializeComponent();

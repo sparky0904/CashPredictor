@@ -12,15 +12,30 @@ using Android.Widget;
 
 namespace CashPredictor.Code
 {
-    internal class clsBankDebitsListViewAdapter : BaseAdapter<clsBankDebit>
+    public class OnIncludeInCalculationCheckboxArgs : EventArgs
+    {
+        private int mRecordID;
+        public int RecordID { get => mRecordID; set => mRecordID = value; }
+
+        public OnIncludeInCalculationCheckboxArgs(int recordID) : base()
+        {
+            RecordID = recordID;
+        }
+    }
+
+    public class clsBankDebitsListViewAdapter : BaseAdapter<clsBankDebit>, View.IOnClickListener
     {
         private List<clsBankDebit> mItems;
         private Context mContext;
+        private string mClassName;
+
+        public event EventHandler<OnIncludeInCalculationCheckboxArgs> mOnIncudeInCalculationClicked;
 
         public clsBankDebitsListViewAdapter(Context context, List<clsBankDebit> items)
         {
             mItems = items;
             mContext = context;
+            mClassName = this.GetType().Name;
         }
 
         public override int Count
@@ -53,6 +68,9 @@ namespace CashPredictor.Code
                 row = LayoutInflater.From(mContext).Inflate(Resource.Layout.BankDebit_Row, null, false);
             }
 
+            TextView txtID = row.FindViewById<TextView>(Resource.Id.txt_id);
+            txtID.Text = mItems[position].ID.ToString();
+
             TextView txDescription = row.FindViewById<TextView>(Resource.Id.txtDescription);
             txDescription.Text = "" + mItems[position].Description + "";
 
@@ -64,11 +82,29 @@ namespace CashPredictor.Code
 
             CheckBox txtIncudeInCalculation = row.FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
             txtIncudeInCalculation.Checked = mItems[position].IncludeInCalculation;
-
-            TextView txtID = row.FindViewById<TextView>(Resource.Id.txt_id);
-            txtID.Text = mItems[position].ID.ToString();
+            txtIncudeInCalculation.Tag = txtID.Text;
+            txtIncudeInCalculation.SetOnClickListener(this);
 
             return row;
+        }
+
+        void View.IOnClickListener.OnClick(View v)
+        {
+            Console.WriteLine("[{0}] Tag data: [{1}]", mClassName, v.Tag);
+
+            Int16 theID = Convert.ToInt16(v.Tag.ToString());
+
+            // Console.WriteLine("Checked: {0}", v.FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation).Checked.ToString());
+            // Console.WriteLine("ID: {0}", theID);
+
+            // Set the checked item in the bank debits
+            Console.WriteLine("[{0}] ID from mItems in : {1}", mClassName, mItems.Find(x => x.ID.Equals(theID)).ID.ToString());
+
+            // Fire the event
+            if (mOnIncudeInCalculationClicked != null)
+            {
+                mOnIncudeInCalculationClicked.Invoke(this, new OnIncludeInCalculationCheckboxArgs((int)theID));
+            }
         }
     }
 }

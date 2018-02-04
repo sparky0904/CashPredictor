@@ -30,16 +30,29 @@ namespace CashPredictor.Code
         public int ID { get => mID; set => mID = value; }
         public bool IncludeInCalculation { get => mIncludeInCalculation; set => mIncludeInCalculation = value; }
 
-        public clsBankDebit(string _Description, double _Amount, int _DayLeavesAccount, DateTime _DateLeavesAccount)
+        public clsBankDebit(int _ID, string _Description, double _Amount, int _DayLeavesAccount, DateTime _DateLeavesAccount)
         {
-            ID = nextID;
+            // Check if the _ID <= 0, this indicates it is a new record
+            if (_ID <= 0)
+            {
+                ID = nextID;
+                nextID++;
+            }
+            else
+            {
+                // The record is know to us so use the ID provided
+                ID = _ID;
+            }
+
             Description = _Description;
             Amount = _Amount;
             DayLeavesAccount = _DayLeavesAccount;
             DateLeaveAccount = _DateLeavesAccount;
             IncludeInCalculation = true;
+        }
 
-            nextID++;
+        public void Save()  // Save the current record
+        {
         }
     }
 }

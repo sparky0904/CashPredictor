@@ -33,7 +33,14 @@ namespace CashPredictor.Code
         #endregion Singleton
 
         private int mPayDay = 26;
-
         public int PayDay { get => mPayDay; set => mPayDay = value; }
+
+        private bool mSetReoccuringToFalseIfSameDayAsCurrentDay = true;
+
+        public bool SetReoccuringToFalseIfSameDayAsCurrentDay
+        {
+            get => mSetReoccuringToFalseIfSameDayAsCurrentDay;
+            set => mSetReoccuringToFalseIfSameDayAsCurrentDay = value;
+        }
     }
 }

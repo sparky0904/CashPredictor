@@ -20,5 +20,13 @@ namespace CashPredictor.Code
 
             return DatabaseInstance.BankDebits;
         }
+
+        public static int Save(clsBankDebit theBankDebit)
+        {
+            // Will return -1 if save was unsucessful, otherwise will return the ID of the record saved
+            int returnValue = -1;
+
+            return (returnValue);
+        }
     }
 }

@@ -17,77 +17,24 @@ namespace CashPredictor
     [Activity(Label = "CashPredictor", MainLauncher = true, Icon = "@drawable/icon", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     public class MainActivity : Activity
     {
-        public List<Code.clsOutgoing> Outgoings = new List<Code.clsOutgoing>();
-
         public Code.ClsSMSBroadcastReceiver SMSBroadcastReceiver;
         private Code.clsCashPredictor CashPredictorInstance = Code.clsCashPredictor.Instance();
+        private string mClassName;
 
         private ListView mBankDebitListView;
         private Button mBtnUpdateOutgoings;
-        private bool mDataLoaded = false;
-
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
-
-            // Get reference to paramaters
-            Code.clsParameters parameters = Code.clsParameters.Instance();
-
-            // Add some data for test purposes
-            if (!mDataLoaded)
-            {
-                Code.clsTestHarness.LoadTestOutgoings();
-                mDataLoaded = true;
-            }
-
-            // Calculate the outogings so we can show balance !!
-            Code.HelperMethods.CalculateListOfBankDebits();
-
-            // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
-
-            mBankDebitListView = FindViewById<ListView>(Resource.Id.fldBankDebitsListView);
-
-            Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, Code.clsBankDebitDB.GetBankDebits());
-
-            mBankDebitListView.Adapter = adapter;
-            mBankDebitListView.ItemClick += BankDebitListView_ItemClick;
-
-            mBtnUpdateOutgoings = FindViewById<Button>(Resource.Id.btnUpdateOutgoings);
-            mBtnUpdateOutgoings.Click += (object sender, EventArgs e) =>
-            {
-                var ListOutgoingsActivity = new Intent(this, typeof(Code.clsListOutgoings_Activity));
-                StartActivity(ListOutgoingsActivity);
-            };
-
-            EditText mfldCurrentBalance = FindViewById<EditText>(Resource.Id.fldCurrentBalance);
-            mfldCurrentBalance.AfterTextChanged += MfldCurrentBalance_AfterTextChanged;
-
-            CheckBox mfldIncudeInCalculation = FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
-            // mfldIncudeInCalculation.CheckedChange += mfldIncudeInCalculation_CheckedChange;
-
-            // Set the Payday
-            TextView txtPayDate = FindViewById<TextView>(Resource.Id.txtPayDate);
-            string myText = "";
-
-            myText = "Pay Day is the: " + parameters.PayDay.ToString() + Code.HelperMethods.DaySuffix(parameters.PayDay).ToString();
-
-            // Set the todays day text..
-            myText += " - Today is the " + DateTime.Now.Day.ToString() + Code.HelperMethods.DaySuffix(DateTime.Now.Day);
-
-            txtPayDate.Text = myText;
-        }
 
         #region Activity Form Events
 
         private void BankDebitListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+            Console.WriteLine("[{0}] Bank debit clicked - " + CashPredictorInstance.GetBankDebits()[e.Position].Description, mClassName);
             Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
         }
 
         private void mfldIncudeInCalculation_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
-            Console.WriteLine("Include in calculation clicked");
+            Console.WriteLine("[{0}] Include in calculation clicked", mClassName);
             Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
         }
 
@@ -131,7 +78,9 @@ namespace CashPredictor
         {
             base.OnResume();
 
-            Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, Code.clsBankDebitDB.GetBankDebits());
+            // Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, Code.clsBankDebitDB.GetBankDebits());
+
+            Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, CashPredictorInstance.GetBankDebits());
 
             mBankDebitListView.Adapter = adapter;
 
@@ -150,13 +99,63 @@ namespace CashPredictor
             base.OnPause();
         }
 
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            mClassName = this.GetType().Name;
+
+            // Get reference to paramaters
+            Code.clsParameters parameters = Code.clsParameters.Instance();
+
+            // Set our view from the "main" layout resource
+            SetContentView(Resource.Layout.Main);
+
+            mBankDebitListView = FindViewById<ListView>(Resource.Id.fldBankDebitsListView);
+
+            Code.clsBankDebitsListViewAdapter adapter = new Code.clsBankDebitsListViewAdapter(this, Code.clsBankDebitDB.GetBankDebits());
+
+            mBankDebitListView.Adapter = adapter;
+            mBankDebitListView.ItemClick += BankDebitListView_ItemClick;
+            Console.WriteLine("[{0}] Registered the item click event for the bank debit list view..", mClassName);
+
+            mBtnUpdateOutgoings = FindViewById<Button>(Resource.Id.btnUpdateOutgoings);
+            mBtnUpdateOutgoings.Click += (object sender, EventArgs e) =>
+            {
+                var ListOutgoingsActivity = new Intent(this, typeof(Code.clsListOutgoings_Activity));
+                StartActivity(ListOutgoingsActivity);
+            };
+
+            EditText mfldCurrentBalance = FindViewById<EditText>(Resource.Id.fldCurrentBalance);
+            mfldCurrentBalance.AfterTextChanged += MfldCurrentBalance_AfterTextChanged;
+
+            CheckBox mfldIncudeInCalculation = FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
+            // mfldIncudeInCalculation.CheckedChange += mfldIncudeInCalculation_CheckedChange;
+
+            // Set the Payday
+            TextView txtPayDate = FindViewById<TextView>(Resource.Id.txtPayDate);
+            string myText = "";
+
+            myText = "Pay Day is the: " + parameters.PayDay.ToString() + Code.HelperMethods.DaySuffix(parameters.PayDay).ToString();
+
+            // Set the todays day text..
+            myText += " - Today is the " + DateTime.Now.Day.ToString() + Code.HelperMethods.DaySuffix(DateTime.Now.Day);
+
+            txtPayDate.Text = myText;
+
+            // Register the update balance method for any changes in the include in clacluation checkbox
+            Code.clsBankDebitsListViewAdapter.
+        }
+
         #endregion Activity Form Events
+
+        #region Methods
 
         // Updates the balance
         private void UpdateBalance()
         {
             // Calaculate the BankDebits
-            Code.HelperMethods.CalculateListOfBankDebits();
+            CashPredictorInstance.CalculateListOfBankDebits();
 
             // Calcultae the new balance
             double CurrentBalance;
@@ -172,5 +171,7 @@ namespace CashPredictor
             // Recalaculate the balance
             mtxtBalance.Text = CashPredictorInstance.CalculateBalance(CurrentBalance).ToString();
         }
+
+        #endregion Methods
     }
 }

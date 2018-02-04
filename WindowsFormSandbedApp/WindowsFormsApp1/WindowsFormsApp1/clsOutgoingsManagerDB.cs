@@ -134,5 +134,10 @@ namespace CashPredictor
 
             return returnValue;
         }
+
+        internal static int SaveData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

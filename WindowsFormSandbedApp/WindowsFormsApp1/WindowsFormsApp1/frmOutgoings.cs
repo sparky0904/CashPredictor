@@ -192,7 +192,9 @@ namespace CashPredictor
         private void btnCancel_Click(object sender, EventArgs e)
         {
             // Lets ask if they want to save before they exit
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
             bool saveData = true;
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
 
             // if we have changed some data or we are editing then dont exit form
             // we need ask if we are saving the data
