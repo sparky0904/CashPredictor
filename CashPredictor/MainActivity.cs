@@ -26,18 +26,6 @@ namespace CashPredictor
 
         #region Activity Form Events
 
-        private void BankDebitListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Console.WriteLine("[{0}] Bank debit clicked - " + CashPredictorInstance.GetBankDebits()[e.Position].Description, mClassName);
-            Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
-        }
-
-        private void mfldIncudeInCalculation_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            Console.WriteLine("[{0}] Include in calculation clicked", mClassName);
-            Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
-        }
-
         public override void OnConfigurationChanged(Configuration newConfig)
         {
             // Handles any configuration changes including rotation of the screen
@@ -144,7 +132,19 @@ namespace CashPredictor
             txtPayDate.Text = myText;
 
             // Register the update balance method for any changes in the include in clacluation checkbox
-            Code.clsBankDebitsListViewAdapter.
+            //Code.clsBankDebitsListViewAdapter.
+        }
+
+        private void BankDebitListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Console.WriteLine("[{0}] Bank debit clicked - " + CashPredictorInstance.GetBankDebits()[e.Position].Description, mClassName);
+            Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
+        }
+
+        private void mfldIncudeInCalculation_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            Console.WriteLine("[{0}] Include in calculation clicked", mClassName);
+            Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
         }
 
         #endregion Activity Form Events
