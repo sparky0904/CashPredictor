@@ -3,18 +3,50 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="Enter current balance"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:gravity="center_horizontal" />
-    <EditText
-        android:inputType="numberDecimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fldCurrentBalance" />
+        android:layout_height="50dp"
+        android:id="@+id/linearLayout1"
+        android:gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+        <TextView
+            android:text="Balance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textView1"
+            android:gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:width="75dp"
+            android:layout_marginBottom="0.0dp"
+            android:layout_gravity="center_vertical"
+            android:height="10dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:id="@+id/fldCurrentBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:width="50dp"
+            android:numeric="decimal"
+            android:gravity="bottom" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/space1"
+            android:layout_weight="1" />
+        <TextView
+            android:text="8"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:id="@+id/txtDaysTillPayDay"
+            android:width="20dp"
+            android:gravity="bottom"
+            android:layout_gravity="center" />
+    </LinearLayout>
     <TextView
         android:text="Predicted balance on payday which is xx"
         android:textAppearance="?android:attr/textAppearanceMedium"

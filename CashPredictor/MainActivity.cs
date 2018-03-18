@@ -137,8 +137,19 @@ namespace CashPredictor
 
         private void BankDebitListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Console.WriteLine("[{0}] Bank debit clicked - " + CashPredictorInstance.GetBankDebits()[e.Position].Description, mClassName);
+            Code.clsBankDebit bankDebit = CashPredictorInstance.GetBankDebits()[e.Position];
+
+            Console.WriteLine("[{0}] Bank debit clicked - ID: [{1}] {2}", mClassName, bankDebit.ID.ToString(), bankDebit.Description);
             Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
+
+            // Update the bank debit to change the include in calculation flag
+            bankDebit.IncludeInCalculation = !bankDebit.IncludeInCalculation; // Reverse the includeincalulation
+            bankDebit.Save(); // Save the Bankdebit
+
+            // refresh the bankdebit listview
+            OnResume();
+
+            UpdateBalance(); // Update the balance
         }
 
         private void mfldIncudeInCalculation_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
@@ -151,13 +162,25 @@ namespace CashPredictor
 
         #region Methods
 
+        private double GrabCurrentBalance()
+        {
+            double CurrentBalance;
+
+            TextView CurrentBalanceText;
+            CurrentBalanceText = FindViewById<TextView>(Resource.Id.fldCurrentBalance);
+
+            if (CurrentBalanceText.Text == "") { CurrentBalance = 0; } else { CurrentBalance = Convert.ToDouble(CurrentBalanceText.Text); }
+
+            return CurrentBalance;
+        }
+
         // Updates the balance
         private void UpdateBalance()
         {
-            // Calaculate the BankDebits
-            CashPredictorInstance.CalculateListOfBankDebits();
+            // Calculate the BankDebits
+            // CashPredictorInstance.CalculateListOfBankDebits();
 
-            // Calcultae the new balance
+            // Calculate the new balance
             double CurrentBalance;
 
             TextView CurrentBalanceText;

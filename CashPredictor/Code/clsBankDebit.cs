@@ -53,6 +53,8 @@ namespace CashPredictor.Code
 
         public void Save()  // Save the current record
         {
+            Code.clsDatabase DatabaseInstance = Code.clsDatabase.Instance();
+            DatabaseInstance.SaveBankDebit(this);
         }
     }
 }

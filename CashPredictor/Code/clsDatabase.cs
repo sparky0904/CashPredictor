@@ -63,6 +63,37 @@ namespace CashPredictor.Code
             mOutgoings.Clear();
         }
 
+        // Will update the recoresd sin the list that match the ID in the loaded bankdebit
+        public int SaveBankDebit(clsBankDebit theBankDebit)
+        {
+            try
+            {
+                // If the bankdebit ID is -1 inidcates is a new record so just add to the list and return a code of 1
+                if (theBankDebit.ID == -1)
+                {
+                    mBankDebits.Add(theBankDebit);
+                    return (1);
+                }
+
+                // Search through list and replace with loaded Bank Debit
+                int numberOfRecordsUpdated = 0;
+                for (int i = 0; i < mBankDebits.Count - 1; i++)
+                {
+                    if (mBankDebits[i].ID == theBankDebit.ID)
+                    {
+                        mBankDebits[i] = theBankDebit;
+                        numberOfRecordsUpdated++;
+                    }
+                }
+                return (numberOfRecordsUpdated); // Indicate the number of records updated in the return value
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in saving BankDebit, erro description is [{0}]", e.Message);
+                return (-1);
+            }
+        }
+
         #endregion Methods
     }
 }

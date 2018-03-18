@@ -61,6 +61,8 @@ namespace CashPredictor.Code
 
         public void CalculateListOfBankDebits()
         {
+            //TODO: Ensure this takes into consideration that user may of set an include-in-calculation manually
+
             // Generate the list
             List<clsBankDebit> ListOfAllBankDebits = new List<clsBankDebit>();
 
@@ -173,7 +175,7 @@ namespace CashPredictor.Code
                 }
             } while (!ListIsInOrder);
 
-            // Loop through all the bank debits and set reoccuring to false if it is set do do so in the parameters
+            // Loop through all the bank debits and set include in calculation to false if today is the day it is due to come out of account and it is set do do so in the parameters
             if (parameters.SetReoccuringToFalseIfSameDayAsCurrentDay)
             {
                 foreach (clsBankDebit i in ListOfAllBankDebits)
