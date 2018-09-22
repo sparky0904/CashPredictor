@@ -26,14 +26,14 @@ namespace CashPredictor.Code
 
         #endregion Variables
 
-        // This needs to be a singleton so we have some code to ensure this happens
-
         // constructor is 'protected'
         protected clsCashPredictor()
         {
             LoadData();
             CalculateListOfBankDebits();
         }
+
+        // This needs to be a singleton so we have some code to ensure this happens
 
         #region Singleton
 
@@ -210,8 +210,10 @@ namespace CashPredictor.Code
         public double CalculateBalance(double CurrentBalance)
         {
             // Calculates the balance
-            // We take an inbound balanace figure and deduct all outgoings marked IncludeInCalculation
+            // We take an input balance figure and deduct all outgoings marked IncludeInCalculation
             double NewBalance = CurrentBalance;
+
+            // Obtain a copy of the database instance where the data is stored internally
             Code.clsDatabase DatabaseInstance = Code.clsDatabase.Instance();
 
             foreach (Code.clsBankDebit OutgoingItem in DatabaseInstance.BankDebits)
