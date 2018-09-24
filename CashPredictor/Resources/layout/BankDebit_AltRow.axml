@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="25px"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:clickable="false">
+    <TextView
+        android:text="Description"
+        android:layout_width="wrap_content"
+        android:layout_weight="70"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDescription"
+        android:gravity="left" />
+    <TextView
+        android:text="Amount"
+        android:layout_width="wrap_content"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAmount"
+        android:gravity="right" />
+    <TextView
+        android:text="Day"
+        android:layout_width="wrap_content"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDayLeavesAccount"
+        android:gravity="right" />
+    <CheckBox
+        android:text=""
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/txtIncudeInCalculation"
+        android:focusable="false"
+        android:clickable="true" />
+    <TextView
+        android:id="@+id/txt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</LinearLayout>

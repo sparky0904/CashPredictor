@@ -18,7 +18,7 @@ namespace CashPredictor
     public class MainActivity : Activity
     {
         public Code.ClsSMSBroadcastReceiver SMSBroadcastReceiver;
-        private Code.clsCashPredictor CashPredictorInstance = Code.clsCashPredictor.Instance();
+        private Code.clsCashPredictor CashPredictorInstance;
         private string mClassName;
 
         private ListView mBankDebitListView;
@@ -91,6 +91,8 @@ namespace CashPredictor
         {
             base.OnCreate(bundle);
 
+            CashPredictorInstance = Code.clsCashPredictor.Instance(this);
+
             mClassName = this.GetType().Name;
 
             // Get reference to paramaters
@@ -140,10 +142,10 @@ namespace CashPredictor
             Code.clsBankDebit bankDebit = CashPredictorInstance.GetBankDebits()[e.Position];
 
             Console.WriteLine("[{0}] Bank debit clicked - ID: [{1}] {2}", mClassName, bankDebit.ID.ToString(), bankDebit.Description);
-            Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short);
+            Toast.MakeText(this, "Bank Debit list view item clicked!", ToastLength.Short).Show();
 
             // Update the bank debit to change the include in calculation flag
-            bankDebit.IncludeInCalculation = !bankDebit.IncludeInCalculation; // Reverse the includeincalulation
+            bankDebit.IncludeInCalculation = !bankDebit.IncludeInCalculation; // Reverse the includeincalulation flag
             bankDebit.Save(); // Save the Bankdebit
 
             // refresh the bankdebit listview
@@ -155,7 +157,7 @@ namespace CashPredictor
         private void mfldIncudeInCalculation_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             Console.WriteLine("[{0}] Include in calculation clicked", mClassName);
-            Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
+            // Toast.MakeText(this, "Include in calculation clicked", ToastLength.Short);
         }
 
         #endregion Activity Form Events

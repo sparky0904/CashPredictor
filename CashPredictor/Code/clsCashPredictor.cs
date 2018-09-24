@@ -27,9 +27,9 @@ namespace CashPredictor.Code
         #endregion Variables
 
         // constructor is 'protected'
-        protected clsCashPredictor()
+        protected clsCashPredictor(Context context)
         {
-            LoadData();
+            LoadData(context);
             CalculateListOfBankDebits();
         }
 
@@ -40,11 +40,11 @@ namespace CashPredictor.Code
         // Global variablein the valss to hold an instance of the class
         private static clsCashPredictor mInstance;
 
-        public static clsCashPredictor Instance()
+        public static clsCashPredictor Instance(Context context)
         {
             if (mInstance == null)
             {
-                mInstance = new clsCashPredictor();
+                mInstance = new clsCashPredictor(context);
             }
 
             return mInstance;
@@ -192,16 +192,23 @@ namespace CashPredictor.Code
             DatabaseInstance.BankDebits = ListOfAllBankDebits;
         }
 
-        private void LoadData()
+        private void LoadData(Context context)
         {
-            // Check database to see if data exists on device
-            // If data exists then load
+            // Get reference to Database class
+            clsDatabase DatabaseInstance = clsDatabase.Instance();
+
+            // Ask the database class to load the data from the device
+            mDataLoaded = DatabaseInstance.LoadOutgoings(context);
 
             // else Add some data for test purposes
             if (!mDataLoaded)
             {
                 Code.clsTestHarness.LoadTestOutgoings();
-                mDataLoaded = true;
+
+                if (DatabaseInstance.SaveOutgoings(context) >= 0)
+                {
+                    mDataLoaded = true;
+                }
             }
         }
 

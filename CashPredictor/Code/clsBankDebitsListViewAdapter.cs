@@ -68,6 +68,10 @@ namespace CashPredictor.Code
             if (row == null)
             {
                 row = LayoutInflater.From(mContext).Inflate(Resource.Layout.BankDebit_Row, null, false);
+                if (!mItems[position].IncludeInCalculation)
+                {
+                    row = LayoutInflater.From(mContext).Inflate(Resource.Layout.BankDebit_Row, null, false);
+                }
             }
 
             TextView txtID = row.FindViewById<TextView>(Resource.Id.txt_id);
@@ -84,7 +88,16 @@ namespace CashPredictor.Code
 
             CheckBox txtIncudeInCalculation = row.FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
             txtIncudeInCalculation.Checked = mItems[position].IncludeInCalculation;
+
+            if (!mItems[position].IncludeInCalculation)
+            {
+                //row.(Android.Graphics.Color.Red);
+            }
+
+            // Set the tag so we can refernce the ID of the bank debit
             txtIncudeInCalculation.Tag = txtID.Text;
+
+            // Set up the onClick listener
             txtIncudeInCalculation.SetOnClickListener(this);
 
             return row;

@@ -12,6 +12,7 @@ using Android.Widget;
 
 namespace CashPredictor.Code
 {
+    [Serializable]
     public class clsOutgoing
     {
         private string mDescription;

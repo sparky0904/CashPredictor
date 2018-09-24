@@ -42,5 +42,7 @@ namespace CashPredictor.Code
             get => mSetReoccuringToFalseIfSameDayAsCurrentDay;
             set => mSetReoccuringToFalseIfSameDayAsCurrentDay = value;
         }
+
+        public string OutGoingsDataFilename = "Outgoings.dat";
     }
 }
