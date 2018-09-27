@@ -57,8 +57,8 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/progressBar1"
                 android:max="100"
-                android:progress="75"
-                android:secondaryProgress="50"
+                android:progress="100"
+                android:secondaryProgress="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

@@ -119,6 +119,15 @@ namespace CashPredictor
             EditText mfldCurrentBalance = FindViewById<EditText>(Resource.Id.fldCurrentBalance);
             mfldCurrentBalance.AfterTextChanged += MfldCurrentBalance_AfterTextChanged;
 
+            ProgressBar mProgressBarDaysUntilPayday = FindViewById<ProgressBar>(Resource.Id.progressBar1);
+            float mDaysUntilNextPayDay = Code.HelperMethods.DaysUntilNextPayDay();
+            float mDaysInThisPayPeriod = Code.HelperMethods.DaysInThisPayPeriod();
+
+            mProgressBarDaysUntilPayday.Progress = Convert.ToInt32(((mDaysInThisPayPeriod - mDaysUntilNextPayDay) / mDaysInThisPayPeriod) * 100);
+
+            TextView txtDaysUntilNextPayDay = FindViewById<TextView>(Resource.Id.txtDaysTillPayDay);
+            // txtDaysUntilNextPayDay.Text = mDaysUntilNextPayDay.ToString() + " days until pay day";
+
             CheckBox mfldIncudeInCalculation = FindViewById<CheckBox>(Resource.Id.txtIncudeInCalculation);
             // mfldIncudeInCalculation.CheckedChange += mfldIncudeInCalculation_CheckedChange;
 

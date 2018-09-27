@@ -78,5 +78,56 @@ namespace CashPredictor.Code
         {
             return DateTime.DaysInMonth(DateToCheck.Year, DateToCheck.Month);
         }
+
+        public static float DaysUntilNextPayDay()
+        {
+            DateTime TodaysDate = DateTime.Now;
+            DateTime NextPayDate = TodaysDate;
+
+            // Get reference to paramaters
+            Code.clsParameters parameters = Code.clsParameters.Instance();
+
+            // Detrmine the next pay day month
+            // If today is more than the payday then it is next month so add a month
+            if (TodaysDate.Day >= parameters.PayDay)
+                NextPayDate = NextPayDate.AddMonths(1);
+
+            // Set the next pay date using the payday and current next pay day field
+            NextPayDate = new DateTime(NextPayDate.Year, NextPayDate.Month, parameters.PayDay);
+
+            return (float)(NextPayDate - TodaysDate).TotalDays;
+        }
+
+        public static float DaysInThisPayPeriod()
+        {
+            DateTime LastPayDate = DateTime.Now;
+            DateTime TodaysDate = DateTime.Now;
+            DateTime NextPayDate = TodaysDate;
+
+            // Get reference to paramaters
+            Code.clsParameters parameters = Code.clsParameters.Instance();
+
+            // Check if today is less than payday if so then last payday was last month
+            if (TodaysDate.Day <= parameters.PayDay)
+            {
+                LastPayDate = LastPayDate.AddMonths(-1);
+            }
+
+            // Set last pay date now we now the month
+            LastPayDate = new DateTime(LastPayDate.Year, LastPayDate.Month, parameters.PayDay);
+
+            // Set Next payday
+            // Check if payday is in this onth or next by seeing if today is greater than payday
+            if (TodaysDate.Day >= parameters.PayDay)
+            {
+                NextPayDate = NextPayDate.AddMonths(1);
+            }
+
+            // set the nextpay date now we know the month
+            NextPayDate = new DateTime(NextPayDate.Year, NextPayDate.Month, parameters.PayDay);
+
+            // Now  to the matsh and return
+            return (float)(NextPayDate - LastPayDate).TotalDays;
+        }
     }
 }
